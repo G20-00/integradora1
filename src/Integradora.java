@@ -18,18 +18,30 @@ public class Integradora{
 		while(run) {
 			System.out.println("Escoja una opcion:");
 			System.out.println("1. Comparar una serie de productos y añadir a la lista el de menor precio.");
-			System.out.println("2. Mostar lista en pantalla.");
-			System.out.println("3. Finalizar programa.");
+			System.out.println("2. Mostar lista en pantalla los mejores precios.");
+			System.out.println("3. Mostrar mejores precios para obra negra.");
+			System.out.println("4. Mostrar mejores precios para obra blanca.");
+			System.out.println("5. Mostrar mejores precios para obra pintura.");
+			System.out.println("6. Finalizar programa.");
 			
 			int opcion =  Integer.parseInt(scan.nextLine());
 			switch(opcion) {
 			case 1: compararProductos(scan, intencion , nombres, mejorPrecio,LugarMejorPrecio);
 					break;
-			case 2: mostrarEnPantalla( nombres, mejorPrecio,LugarMejorPrecio,intencion);
-					
+			case 2: mostrarEnPantalla( nombres, mejorPrecio,LugarMejorPrecio,intencion);					
 					System.out.println();
 					break;
-			case 3: run = false;
+			case 3: 	mostrarEnPantallaObraNegra( nombres, mejorPrecio,LugarMejorPrecio,intencion);
+					System.out.println();
+					break;
+			case 4: mostrarEnPantallaObraBlanca( nombres, mejorPrecio,LugarMejorPrecio,intencion);
+					System.out.println();
+					break;
+			case 5: mostrarEnPantallaObraPintura( nombres, mejorPrecio,LugarMejorPrecio,intencion);
+					System.out.println();
+					break;		
+					
+			case 6: run = false;
 					System.out.println("BYE BYE");
 					break;
 			default:System.out.println("Opcion no valida, por favor escoja una opcion correcta.");
@@ -44,16 +56,16 @@ public class Integradora{
 		String intencion = null;
 		while(!escogido) {
 			System.out.println("Escoja la opcion de la intencion con la obtiene el producto: ");
-			System.out.println("1. " + OBRA_BLANCA);
-			System.out.println("2. " + OBRA_NEGRA);
+			System.out.println("1. " + OBRA_NEGRA);
+			System.out.println("2. " + OBRA_BLANCA);
 			System.out.println("3. " + OBRA_PINTURA);
 			
 			int opcion =  Integer.parseInt(scan.nextLine());
 			switch(opcion) {
-			case 1: intencion = OBRA_BLANCA;
+			case 1: intencion = OBRA_NEGRA;
 					escogido = true;
 					break;
-			case 2: intencion = OBRA_NEGRA;
+			case 2: intencion = OBRA_BLANCA;
 					escogido = true;
 					break;
 			case 3: intencion = OBRA_PINTURA;
@@ -113,7 +125,7 @@ public class Integradora{
 			if((HomeCenter[i] < FerreteriaCentro[i]) &&(HomeCenter[i] < FerreteríaDelBarrio[i])) {
 				mejorPrecio[i]= HomeCenter[i];
 				LugarMejorPrecio[i]= HomeC ;
-				intencion[j]=compararIntencionalidad[i];
+				intencion[i]=compararIntencionalidad[i];
 			}
 			else
 			{
@@ -149,4 +161,43 @@ public class Integradora{
 			}
 		}
 	}
+	public static void mostrarEnPantallaObraNegra ( String[] nombres, double[] precios,String[] LugarMejorPrecio,String[] intencion ) {
+		int x = 1;
+		boolean completo = false;
+		System.out.println("Los mejores precios la obra negra son:");
+		for (int i = 0; i < precios.length && !completo; i++) {
+			if( intencion[i] == OBRA_NEGRA) {
+				System.out.println(x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				x++;
+			}else {
+				completo=true;
+			}
+		}
+	}
+	public static void mostrarEnPantallaObraBlanca ( String[] nombres, double[] precios,String[] LugarMejorPrecio,String[] intencion ) {
+		int x = 1;
+		boolean completo = false;
+		System.out.println("Los mejores precios la obra blanca son:");
+		for (int i = 0; i < precios.length && !completo; i++) {
+			if( intencion[i] == OBRA_BLANCA) {
+				System.out.println(x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				x++;
+			}else {
+				completo=true;
+			}
+		}
+	}
+	public static void mostrarEnPantallaObraPintura( String[] nombres, double[] precios,String[] LugarMejorPrecio,String[] intencion ) {
+		int x = 1;
+		boolean completo = false;
+		System.out.println("Los mejores precios la obra pintura son:");
+		for (int i = 0; i < precios.length && !completo; i++) {
+			if( intencion[i] == OBRA_PINTURA) {
+				System.out.println(x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				x++;
+			}else {
+				completo=true;
+			}
+		}
+	} 
 }		
