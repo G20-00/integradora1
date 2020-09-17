@@ -21,11 +21,11 @@ public class Integradora{
 			
 			int opcion =  Integer.parseInt(scan.nextLine());
 			switch(opcion) {
-			case 1: //compararProductos(scan, nombres, intencion, precios);
+			case 1: compararProductos(scan, nombres, precios);
 					break;
-			case 2: //mostrarEnPantalla(intencion, nombres, precios);
-					//System.out.println();
-					//break;
+			case 2: mostrarEnPantalla( nombres, precios);
+					System.out.println();
+					break;
 			case 3: run = false;
 					System.out.println("BYE BYE");
 					break;
@@ -70,10 +70,10 @@ public class Integradora{
 			//compararIntencionalidad[i] =  obtenerIntecionalidad(scan);
 		}
 		
-		add(HomeCenter , FerreteriaCentro , FerreteríaDelBarrio , compararNombre ,intencion,  nombres , precios , cantidad);
+		add(HomeCenter , FerreteriaCentro , FerreteríaDelBarrio , compararNombre , nombres , precios , cantidad);
 	}
-	public static void add(double[] HomeCenter, double[]FerreteriaCentro , double[] FerreteríaDelBarrio ,String[] compararNombre, 
-			String[] intencion, String[] nombres, double[] precios , int cantidad) {
+	public static void add(double[] HomeCenter, double[]FerreteriaCentro , double[] FerreteríaDelBarrio ,String[] compararNombre 
+			, String[] nombres, double[] precios , int cantidad) {
 				
 		double[] menorValor = new double[cantidad];
 		int posicionMenor=0;
@@ -85,15 +85,28 @@ public class Integradora{
 			else
 			{
 				if((FerreteriaCentro[i]< HomeCenter[i])&&(FerreteriaCentro[i]<FerreteríaDelBarrio[i])){
-					
+					menorValor[i]=FerreteriaCentro[i];
 				} 
 				else
 				{
 					if((FerreteríaDelBarrio[i]< HomeCenter[i])&&(FerreteriaCentro[i]>FerreteríaDelBarrio[i])){
-						
+						menorValor[i]=FerreteríaDelBarrio[i];
 					}
 				}
 			}
 		}
-	}		
+		
+	}
+	public static void mostrarEnPantalla ( String[] nombres, double[] precios ) {
+		int x = 1;
+		boolean completo = false;
+		for (int i = 0; i < precios.length && !completo; i++) {
+			if(nombres[i] != null) {
+				System.out.println(x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Intencion: " );
+				x++;
+			}else {
+				completo=true;
+			}
+		}
+	}
 }		
