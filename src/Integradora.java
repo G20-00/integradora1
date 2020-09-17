@@ -50,6 +50,7 @@ public class Integradora{
 		for(int i = 0; i<cantidad; i++) {
 			System.out.println("Ingrese el nombre del producto numero " + (i+1));	
 			compararNombre[i] = scan.nextLine();
+			nombres[i]= compararNombre[i];
 			
 			System.out.println("Cuantos unidades necesita del producto");
 			int Unidades = Integer.parseInt(scan.nextLine());
@@ -75,22 +76,22 @@ public class Integradora{
 	public static void add(double[] HomeCenter, double[]FerreteriaCentro , double[] FerreteríaDelBarrio ,String[] compararNombre 
 			, String[] nombres, double[] precios , int cantidad) {
 				
-		double[] menorValor = new double[cantidad];
-		int posicionMenor=0;
+		double menorValor = 0;
+		
 		
 		for (int i = 0; i < cantidad; i++) {
 			if((HomeCenter[i] < FerreteriaCentro[i]) &&(HomeCenter[i] < FerreteríaDelBarrio[i])) {
-				menorValor[i]=HomeCenter[i];
+				precios[i]= HomeCenter[i];
 			}
 			else
 			{
 				if((FerreteriaCentro[i]< HomeCenter[i])&&(FerreteriaCentro[i]<FerreteríaDelBarrio[i])){
-					menorValor[i]=FerreteriaCentro[i];
+					precios[i]=FerreteriaCentro[i];
 				} 
 				else
 				{
 					if((FerreteríaDelBarrio[i]< HomeCenter[i])&&(FerreteriaCentro[i]>FerreteríaDelBarrio[i])){
-						menorValor[i]=FerreteríaDelBarrio[i];
+						precios[i]=FerreteríaDelBarrio[i];
 					}
 				}
 			}
