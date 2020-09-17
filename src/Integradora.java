@@ -42,7 +42,7 @@ public class Integradora{
 		
 		int cantidad = Integer.parseInt(scan.nextLine());
 		double[] HomeCenter = new double[cantidad];
-		double[] FerreCentro = new double[cantidad];
+		double[] FerreteriaCentro = new double[cantidad];
 		double[] FerreteríaDelBarrio = new double[cantidad];
 		String[] compararNombre = new String[cantidad];
 		String[] compararIntencionalidad = new String[cantidad];
@@ -60,7 +60,7 @@ public class Integradora{
 			
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"Ferreteria del centro");
 			precioUnitario = Double.parseDouble(scan.nextLine());
-			FerreCentro[i] = precioUnitario * Unidades;
+			FerreteriaCentro[i] = precioUnitario * Unidades;
 			
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"Ferretería del barrio");
 			precioUnitario = Double.parseDouble(scan.nextLine());
@@ -70,16 +70,29 @@ public class Integradora{
 			//compararIntencionalidad[i] =  obtenerIntecionalidad(scan);
 		}
 		
-		add(HomeCenter , FerreCentro , FerreteríaDelBarrio , compararNombre ,intencion,  nombres , precios);
+		add(HomeCenter , FerreteriaCentro , FerreteríaDelBarrio , compararNombre ,intencion,  nombres , precios , cantidad);
 	}
-	public static void add(double[] HomeCenter, double[]FerreCentro , double[] FerreteríaDelBarrio ,String[] compararNombre, 
-			String[] intencion, String[] nombres, double[] precios) {
-		double menor = compararPrecio[0];
+	public static void add(double[] HomeCenter, double[]FerreteriaCentro , double[] FerreteríaDelBarrio ,String[] compararNombre, 
+			String[] intencion, String[] nombres, double[] precios , int cantidad) {
+				
+		double[] menorValor = new double[cantidad];
 		int posicionMenor=0;
-		for (int i = 1; i < compararPrecio.length; i++) {
-			if(compararPrecio[i]<menor) {
-				menor = compararPrecio[i];
-				posicionMenor = i;
+		
+		for (int i = 0; i < cantidad; i++) {
+			if((HomeCenter[i] < FerreteriaCentro[i]) &&(HomeCenter[i] < FerreteríaDelBarrio[i])) {
+				menorValor[i]=HomeCenter[i];
+			}
+			else
+			{
+				if((FerreteriaCentro[i]< HomeCenter[i])&&(FerreteriaCentro[i]<FerreteríaDelBarrio[i])){
+					
+				} 
+				else
+				{
+					if((FerreteríaDelBarrio[i]< HomeCenter[i])&&(FerreteriaCentro[i]>FerreteríaDelBarrio[i])){
+						
+					}
+				}
 			}
 		}
 	}		
