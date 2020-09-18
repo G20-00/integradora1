@@ -15,6 +15,9 @@ public class Integradora{
 		String[] intencion = new String[CANTIDAD_MAXIMA];
 		double[] mejorPrecio = new double[CANTIDAD_MAXIMA];
 		String[] LugarMejorPrecio = new String[CANTIDAD_MAXIMA];
+		double [] listaHomcenter = new double[CANTIDAD_MAXIMA];
+		double [] listaFerreteriBarrio =new double[CANTIDAD_MAXIMA];
+		double [] listaFerreteriaCentro = new double[CANTIDAD_MAXIMA];
 		while(run) {
 			System.out.println("Escoja una opcion:");
 			System.out.println("1. Comparar una serie de productos y añadir a la lista el de menor precio.");
@@ -22,11 +25,14 @@ public class Integradora{
 			System.out.println("3. Mostrar mejores precios para obra negra.");
 			System.out.println("4. Mostrar mejores precios para obra blanca.");
 			System.out.println("5. Mostrar mejores precios para obra pintura.");
-			System.out.println("6. Finalizar programa.");
+			System.out.println("6. Mostrar  precios de Homcenter");
+			System.out.println("7. Mostrar  precios de ferreteria del barrio.");
+			System.out.println("8. Mostrar mejores de ferreteria del centro.");
+			System.out.println("9. Finalizar programa.");
 			
 			int opcion =  Integer.parseInt(scan.nextLine());
 			switch(opcion) {
-			case 1: compararProductos(scan, intencion , nombres, mejorPrecio,LugarMejorPrecio);
+			case 1: compararProductos(scan,listaHomcenter,listaFerreteriBarrio,listaFerreteriaCentro, intencion , nombres, mejorPrecio,LugarMejorPrecio);
 					break;
 			case 2: mostrarEnPantalla( nombres, mejorPrecio,LugarMejorPrecio,intencion);					
 					System.out.println();
@@ -40,8 +46,16 @@ public class Integradora{
 			case 5: mostrarEnPantallaObraPintura( nombres, mejorPrecio,LugarMejorPrecio,intencion);
 					System.out.println();
 					break;		
-					
-			case 6: run = false;
+			case 6: ValoresHomecenter( nombres,listaHomcenter,LugarMejorPrecio, intencion);
+					System.out.println();
+					break;
+			case 7: ValoresFerreteriaBarrio( nombres,listaFerreteriBarrio,LugarMejorPrecio, intencion);
+					System.out.println();
+					break;
+			case 8: ValoresFerreteriaCentro( nombres,listaFerreteriaCentro,LugarMejorPrecio, intencion);
+					System.out.println();
+					break;		
+			case 9: run = false;
 					System.out.println("BYE BYE");
 					break;
 			default:System.out.println("Opcion no valida, por favor escoja una opcion correcta.");
@@ -76,7 +90,7 @@ public class Integradora{
 		}
 		return intencion;
 	}
-	public static void compararProductos(Scanner scan,String[] intencion, String[] nombres, double[] mejorPrecio,String[] LugarMejorPrecio) {
+	public static void compararProductos(Scanner scan,double[] listaHomcenter,double[] listaFerreteriBarrio,double[] listaFerreteriaCentro,String[] intencion, String[] nombres, double[] mejorPrecio,String[] LugarMejorPrecio) {
 		System.out.println("Compara los productos:");
 		System.out.println("Cuantos productos ingresaras para comparar?");
 		
@@ -98,15 +112,17 @@ public class Integradora{
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"En HomeCenter");
 			precioUnitario = Double.parseDouble(scan.nextLine());
 			HomeCenter[i] = precioUnitario * Unidades;
+			listaHomcenter[i]= HomeCenter[i]; 
 			
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"Ferreteria del centro");
 			precioUnitario = Double.parseDouble(scan.nextLine());
 			FerreteriaCentro[i] = precioUnitario * Unidades;
+			listaFerreteriaCentro[i]=FerreteriaCentro[i];
 			
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"Ferretería del barrio");
 			precioUnitario = Double.parseDouble(scan.nextLine());
 			FerreteríaDelBarrio[i] = precioUnitario * Unidades;
-			
+			listaFerreteriBarrio[i]= FerreteríaDelBarrio[i];
 			
 			compararIntencionalidad[i] =  obtenerIntecionalidad(scan);
 		}
@@ -150,54 +166,95 @@ public class Integradora{
 	}
 	public static void mostrarEnPantalla ( String[] nombres, double[] precios,String[] LugarMejorPrecio,String[] intencion ) {
 		int x = 1;
+		double costototal = 0;
 		boolean completo = false;
 		System.out.println("Los mejores precios y sus puntos de venta son:");
 		for (int i = 0; i < precios.length && !completo; i++) {
 			if(nombres[i] != null) {
-				System.out.println(x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				System.out.println( x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
 				x++;
+			costototal = costototal + precios[i];
 			}else {
 				completo=true;
 			}
 		}
+		System.out.println("El costo total en materiales es"+ costototal);
+		
 	}
 	public static void mostrarEnPantallaObraNegra ( String[] nombres, double[] precios,String[] LugarMejorPrecio,String[] intencion ) {
 		int x = 1;
-		boolean completo = false;
+		
 		System.out.println("Los mejores precios la obra negra son:");
-		for (int i = 0; i < precios.length && !completo; i++) {
+		for (int i = 0; i < precios.length ; i++) {
 			if( intencion[i] == OBRA_NEGRA) {
-				System.out.println(x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				System.out.println( x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
 				x++;
-			}else {
-				completo=true;
 			}
 		}
 	}
 	public static void mostrarEnPantallaObraBlanca ( String[] nombres, double[] precios,String[] LugarMejorPrecio,String[] intencion ) {
 		int x = 1;
-		boolean completo = false;
+		
 		System.out.println("Los mejores precios la obra blanca son:");
-		for (int i = 0; i < precios.length && !completo; i++) {
+		for (int i = 0; i < precios.length; i++) {
 			if( intencion[i] == OBRA_BLANCA) {
-				System.out.println(x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				System.out.println( x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
 				x++;
-			}else {
-				completo=true;
 			}
 		}
 	}
 	public static void mostrarEnPantallaObraPintura( String[] nombres, double[] precios,String[] LugarMejorPrecio,String[] intencion ) {
 		int x = 1;
-		boolean completo = false;
+		
 		System.out.println("Los mejores precios la obra pintura son:");
-		for (int i = 0; i < precios.length && !completo; i++) {
+		for (int i = 0; i < precios.length ; i++) {
 			if( intencion[i] == OBRA_PINTURA) {
-				System.out.println(x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				System.out.println( x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
 				x++;
-			}else {
-				completo=true;
+			
 			}
 		}
 	} 
+	public static void ValoresHomecenter( String[] nombres,double[] listaHomcenter,String[] LugarMejorPrecio, String[] intencion ) {
+		int x = 1;
+		double costototal = 0;
+		boolean completo = false;
+		System.out.println("Los mejores precios la obra pintura son:");
+		for (int i = 0; i < listaHomcenter.length ; i++) {
+			if(nombres[i] != null) {
+			System.out.println( x + ". Nombre: " + nombres[i] + "Valor"+ listaHomcenter[i] +" Lugar de compra " + LugarMejorPrecio[i] +"  "+  intencion[i]);
+				x++;
+				costototal = costototal + listaHomcenter[i];
+			}
+		}
+		System.out.println("El costo total en materiales es" + costototal);
+	}
+	public static void ValoresFerreteriaBarrio( String[] nombres,double[] listaFerreteriBarrio,String[] LugarMejorPrecio,String[] intencion ) {
+		int x = 1;
+		double costototal = 0;
+		
+		System.out.println("Los mejores precios la obra pintura son:");
+		for (int i = 0; i < listaFerreteriBarrio.length ; i++) {
+			if(nombres[i] != null) {
+			System.out.println( x + ". Nombre: " + nombres[i] + "Valor"+ listaFerreteriBarrio[i] +" Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				x++;
+				costototal = costototal + listaFerreteriBarrio[i];
+			}
+		}
+		System.out.println("El costo total en materiales es" + costototal);
+	}
+	public static void ValoresFerreteriaCentro( String[] nombres,double[] listaFerreteriaCentro,String[] LugarMejorPrecio, String[] intencion ) {
+		int x = 1;
+		double costototal = 0;
+		boolean completo = false;
+		System.out.println("Los mejores precios la obra pintura son:");
+		for (int i = 0; i < listaFerreteriaCentro.length ; i++) {
+			if(nombres[i] != null) {
+				System.out.println( x + ". Nombre: " + nombres[i] + "Valor"+ listaFerreteriaCentro[i] +" Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				x++;
+				costototal = costototal + listaFerreteriaCentro[i];
+			}
+		}
+		System.out.println("El costo total en materiales es" + costototal);
+	}
 }		
