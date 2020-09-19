@@ -214,8 +214,9 @@ public class Integradora{
 		int manoDeObraNegra= 0;
 		int manoDeObraBlanca= 0;
 		int manoDeObraPintura= 0;
+		int valorDomicilio = 0;
 		
-		System.out.println(casa[0]);
+				
 		System.out.println("Los mejores precios y sus puntos de venta son : ");
 		for (int i = 0; i < precios.length && !completo; i++) {
 			if(nombres[i] != null) {
@@ -226,6 +227,19 @@ public class Integradora{
 				completo=true;
 			}
 		}
+		if (casa[0] == "Norte"){
+			if (costototal < 80000){
+				valorDomicilio = 120000 ;
+			}
+			else if((costototal < 300000)&& (costototal>80000)){
+				valorDomicilio = 28000 ;
+			}
+			else if(costototal >= 300000){
+				valorDomicilio = 0 ;
+			}
+			
+		}
+		System.out.println("El costo de domicilio: "+ valorDomicilio);
 		System.out.println("El costo de materiales es: "+ costototal);
 		
 		for (int i=0; i< intencion.length;i++){
