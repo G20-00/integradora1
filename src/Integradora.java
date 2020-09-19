@@ -3,22 +3,22 @@ import java.util.Scanner;
 public class Integradora{
 
 	public static final int CANTIDAD_MAXIMA = 1000;
-	public static final String OBRA_NEGRA = "Obra negra";
-	public static final String OBRA_BLANCA = "Obra blanca";
-	public static final String OBRA_PINTURA = "Obra pintura";
+	public static final String WORK_BLACK = "Obra negra";
+	public static final String WORK_WHITE = "Obra blanca";
+	public static final String WORK_PAINTING = "Obra pintura";
 	
 	
 	public static void main (String [] args) {
 		Scanner scan = new Scanner(System.in);
 		boolean run = true;
-		String[] nombres = new String[CANTIDAD_MAXIMA];
-		String[] intencion = new String[CANTIDAD_MAXIMA];
-		double[] mejorPrecio = new double[CANTIDAD_MAXIMA];
-		String[] LugarMejorPrecio = new String[CANTIDAD_MAXIMA];
-		double [] listaHomcenter = new double[CANTIDAD_MAXIMA];
-		double [] listaFerreteriBarrio =new double[CANTIDAD_MAXIMA];
-		double [] listaFerreteriaCentro = new double[CANTIDAD_MAXIMA];
-		String[] casa = new String[CANTIDAD_MAXIMA];
+		String[] names = new String[CANTIDAD_MAXIMA];
+		String[] intention = new String[CANTIDAD_MAXIMA];
+		double[] bestPrice = new double[CANTIDAD_MAXIMA];
+		String[] placeBestPrice = new String[CANTIDAD_MAXIMA];
+		double [] listHomecenter = new double[CANTIDAD_MAXIMA];
+		double [] neighborhoodHardwarList =new double[CANTIDAD_MAXIMA];
+		double [] hardwareCenterList = new double[CANTIDAD_MAXIMA];
+		String[] house = new String[CANTIDAD_MAXIMA];
 		while(run) {
 			System.out.println("Escoja una opcion:");
 			System.out.println("1. Comparar una serie de productos y añadir a la lista el de menor precio.");
@@ -33,28 +33,28 @@ public class Integradora{
 			
 			int opcion =  Integer.parseInt(scan.nextLine());
 			switch(opcion) {
-			case 1: compararProductos(scan,listaHomcenter,listaFerreteriBarrio,listaFerreteriaCentro, intencion 
-					, nombres, mejorPrecio,LugarMejorPrecio,casa);
+			case 1: compareProducts(scan,listHomecenter,neighborhoodHardwarList,hardwareCenterList, intention 
+					, names, bestPrice,placeBestPrice,house);
 					break;
-			case 2: mostrarEnPantalla(nombres, mejorPrecio,LugarMejorPrecio,intencion,casa);					
+			case 2: showOnScreen(names, bestPrice,placeBestPrice,intention,house);					
 					System.out.println();
 					break;
-			case 3: mostrarEnPantallaObraNegra( nombres,intencion);
+			case 3: showOnScreenWorkBlack( names,intention);
 					System.out.println();
 					break;
-			case 4: mostrarEnPantallaObraBlanca( nombres, intencion);
+			case 4: showOnScreenWhiteWork( names, intention);
 					System.out.println();
 					break;
-			case 5: mostrarEnPantallaObraPintura( nombres, intencion);
+			case 5: showOnScreenWorkPainting( names, intention);
 					System.out.println();
 					break;		
-			case 6: ValoresHomecenter( nombres,listaHomcenter,LugarMejorPrecio, intencion , casa);
+			case 6: homecenterValues( names,listHomecenter,placeBestPrice, intention , house);
 					System.out.println();
 					break;
-			case 7: ValoresFerreteriaBarrio( nombres,listaFerreteriBarrio,LugarMejorPrecio, intencion ,casa);
+			case 7: neighborhoodHardwareValues( names,neighborhoodHardwarList,placeBestPrice, intention ,house);
 					System.out.println();
 					break;
-			case 8: ValoresFerreteriaCentro( nombres,listaFerreteriaCentro,LugarMejorPrecio, intencion , casa);
+			case 8: valuesHardwareCenter( names,hardwareCenterList,placeBestPrice, intention , house);
 					System.out.println();
 					break;		
 			case 9: run = false;
@@ -67,109 +67,106 @@ public class Integradora{
 		
 	
 	}
-	public static String obtenerLugar(Scanner scan){
-	String lugarObtenido = null ;	
-	Lugar l = null ;
-	int contador =1;
-	for (Lugar residencia : Lugar.values()){ // values para obtener todos los valores "objetos"
+	public static String getPlace(Scanner scan){
+	String placeObtained = null ;	
+	place l = null ;
+	int accountant =1;
+	for (place home : place.values()){ // values para obtener todos los valores "objetos"
 			
-			System.out.println(contador + ". "+ residencia.getLugar());
-			contador++;
+			System.out.println(accountant + ". "+ home.getPlace());
+			accountant++;
 		}
 	
 	
 		int opcion =  Integer.parseInt(scan.nextLine());
 		switch(opcion) {
-			case 1: lugarObtenido = l.NORTE.getLugar();
+			case 1: placeObtained = l.NORTH.getPlace();
 					break;
 					
-			case 2: lugarObtenido	= l.CENTRO.getLugar();				
+			case 2: placeObtained	= l.CENTER.getPlace();				
 					
 					break;
-			case 3: lugarObtenido = l.SUR.getLugar();
+			case 3: placeObtained = l.SOUTH.getPlace();
 					break;
 		
 			default:System.out.println("Opcion no valida, por favor escoja una opcion correcta.");
 					System.out.println();
 		}
-		return lugarObtenido;
+		return placeObtained;
 	}
-	public static String obtenerIntecionalidad(Scanner scan) {
-		boolean escogido = false;
-		String intencion = null;
-		while(!escogido) {
+	public static String getIntentionality(Scanner scan) {
+		boolean selected = false;
+		String intention = null;
+		while(!selected) {
 			System.out.println("Escoja la opcion de la intencion con la obtiene el producto: ");
-			System.out.println("1. " + OBRA_NEGRA);
-			System.out.println("2. " + OBRA_BLANCA);
-			System.out.println("3. " + OBRA_PINTURA);
+			System.out.println("1. " + WORK_BLACK);
+			System.out.println("2. " + WORK_WHITE);
+			System.out.println("3. " + WORK_PAINTING);
 			 
 			int opcion =  Integer.parseInt(scan.nextLine());
 			switch(opcion) {
-			case 1: intencion = OBRA_NEGRA;
-						
-						
-					escogido = true;
+			case 1: intention = WORK_BLACK;
+					selected  = true;
 					break;
-			case 2: intencion = OBRA_BLANCA;	
-					
-					escogido = true;
+			case 2: intention = WORK_WHITE;	
+					selected  = true;
 					break;
-			case 3: intencion = OBRA_PINTURA;
+			case 3: intention = WORK_PAINTING;
 					
-					escogido = true;
+					selected  = true;
 					break;
 			default:System.out.println("Opcion no valida, por favor escoja una opcion correcta.");
 			}
 		}
-		return intencion;
+		return intention;
 	}
-	public static void compararProductos(Scanner scan, double[] listaHomcenter,double[] listaFerreteriBarrio,double[] listaFerreteriaCentro,String[] intencion,
-	String[] nombres, double[] mejorPrecio,String[] LugarMejorPrecio,String[] casa) {
+	public static void compareProducts(Scanner scan, double[] listHomecenter,double[] neighborhoodHardwarList,double[] hardwareCenterList,String[] intention,
+	String[] names, double[] bestPrice,String[] placeBestPrice,String[] house) {
 		System.out.println("Compara los productos:");
 		
 		System.out.println( " ¿En que parte se debe entregar el domicilio?" );
 		
-		String lugar = obtenerLugar(scan );
+		String place = getPlace(scan );
 		
 		System.out.println("¿Cuantos productos ingresaras para comparar?");
 		
-		int cantidad = Integer.parseInt(scan.nextLine());
-		double[] HomeCenter = new double[cantidad];
-		double[] FerreteriaCentro = new double[cantidad];
-		double[] FerreteríaDelBarrio = new double[cantidad];
-		String[] compararNombre = new String[cantidad];
-		String[] compararIntencionalidad = new String[cantidad];
+		int quantity = Integer.parseInt(scan.nextLine());
+		double[] HomeCenter = new double[quantity];
+		double[] hardwareCenter = new double[quantity]; // variable asignada para almacenar, los valores para ferreteria del barrio
+		double[] hardwareStore = new double[quantity]; // variable asignada para almacenar, los valores para ferreteria del centro
+		String[] compareName = new String[quantity];
+		String[] compareIntentionality = new String[quantity];
 		
-		double precioUnitario= 0;
+		double unitPrice= 0;
 		
-		casa[0] = lugar;
+		house[0] = place;
 		
-		for(int i = 0; i<cantidad; i++) {
+		for(int i = 0; i<quantity; i++) {
 			
-			compararIntencionalidad[i] =  obtenerIntecionalidad(scan);
+			compareIntentionality[i] =  getIntentionality(scan);
 			
 			System.out.println("Ingrese el nombre del producto numero " + (i+1));	
-			compararNombre[i] = scan.nextLine();
-			nombres[i]= compararNombre[i];
+			compareName[i] = scan.nextLine();
+			names[i]= compareName[i];
 			
 			System.out.println("Cuantos unidades necesita del producto");
-			int Unidades = Integer.parseInt(scan.nextLine());
-			if (Unidades> 0){
+			int Units = Integer.parseInt(scan.nextLine());
+			if (Units> 0){
 			
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"En HomeCenter");
-			precioUnitario = Double.parseDouble(scan.nextLine());
-			HomeCenter[i] = precioUnitario * Unidades;
-			listaHomcenter[i]= HomeCenter[i]; 
+			unitPrice = Double.parseDouble(scan.nextLine());
+			HomeCenter[i] = unitPrice * Units;
+			listHomecenter[i]= HomeCenter[i]; 
 			
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"Ferreteria del centro");
-			precioUnitario = Double.parseDouble(scan.nextLine());
-			FerreteriaCentro[i] = precioUnitario * Unidades;
-			listaFerreteriaCentro[i]=FerreteriaCentro[i];
+			unitPrice = Double.parseDouble(scan.nextLine());
+			hardwareCenter[i] = unitPrice * Units;
+			hardwareCenterList[i]=hardwareCenter[i];
 			
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"Ferretería del barrio");
-			precioUnitario = Double.parseDouble(scan.nextLine());
-			FerreteríaDelBarrio[i] = precioUnitario * Unidades;
-			listaFerreteriBarrio[i]= FerreteríaDelBarrio[i];
+			unitPrice = Double.parseDouble(scan.nextLine());
+			hardwareStore[i] = unitPrice * Units;
+			neighborhoodHardwarList[i]= hardwareStore[i];
 			}
 			else 
 				System.out.println("Las unidades que necesita, no son posibles ");
@@ -177,89 +174,89 @@ public class Integradora{
 		}
 		
 		
-		ComparacionValores(intencion ,compararIntencionalidad , HomeCenter , FerreteriaCentro , FerreteríaDelBarrio , compararNombre , nombres , mejorPrecio , cantidad , LugarMejorPrecio);
+		comparisonValues(intention ,compareIntentionality , HomeCenter , hardwareCenter , hardwareStore , compareName , names , bestPrice , quantity , placeBestPrice);
 	}
-	public static void ComparacionValores(String[] intencion ,String[] compararIntencionalidad,double[] HomeCenter, double[]FerreteriaCentro , double[] FerreteríaDelBarrio ,String[] compararNombre 
-			, String[] nombres, double[] mejorPrecio , int cantidad,String[] LugarMejorPrecio) {
+	public static void comparisonValues(String[] intention ,String[] compareIntentionality,double[] HomeCenter, double[]hardwareCenter , double[] hardwareStore ,String[] compareName 
+			, String[] names, double[] bestPrice , int quantity,String[] placeBestPrice) {
 				
-		double menorValor = 0;
+		double lowerValue = 0;
 		
-		String HomeC = " en Homecenter";
+		String HomeC = " en Homecenter"; // variable de string almacenadora del nombre homecente
 		String Ferrec = " en Ferreteria centro ";
 		String FerreB = "en Ferreteria del barrio";
-		for (int i = 0; i < cantidad; i++) {
-		if((HomeCenter[i] <= FerreteriaCentro[i]) &&(HomeCenter[i] <= FerreteríaDelBarrio[i]) ) {
+		for (int i = 0; i < quantity; i++) {
+		if((HomeCenter[i] <= hardwareCenter[i]) &&(HomeCenter[i] <= hardwareStore[i]) ) {
 				if (HomeCenter[i] > 0) {
-					mejorPrecio[i]= HomeCenter[i];
-					LugarMejorPrecio[i]= HomeC ;
-					intencion[i]=compararIntencionalidad[i];
-				}else if((FerreteriaCentro[i] < FerreteríaDelBarrio[i])&&(FerreteriaCentro[i] > 0) && (FerreteríaDelBarrio[i] > 0)){ 
-					mejorPrecio[i]=FerreteriaCentro[i];
-					LugarMejorPrecio[i]= Ferrec;
-					intencion[i]=compararIntencionalidad[i];
-					}else if ((FerreteriaCentro[i] > FerreteríaDelBarrio[i])&&(FerreteríaDelBarrio[i] > 0) && (FerreteriaCentro[i] > 0)) {
-						mejorPrecio[i]=FerreteríaDelBarrio[i];
-						LugarMejorPrecio[i]= FerreB;
-						intencion[i]=compararIntencionalidad[i];
-						}else if (FerreteriaCentro[i] > 0) {
-							mejorPrecio[i]=FerreteriaCentro[i];
-							LugarMejorPrecio[i]= Ferrec;
-							intencion[i]=compararIntencionalidad[i];
-							} else if (FerreteríaDelBarrio[i] > 0){
-								mejorPrecio[i]=FerreteríaDelBarrio[i];
-								LugarMejorPrecio[i]= FerreB;
-								intencion[i]=compararIntencionalidad[i];
+					bestPrice[i]= HomeCenter[i];
+					placeBestPrice[i]= HomeC ;
+					intention[i]=compareIntentionality[i];
+				}else if((hardwareCenter[i] < hardwareStore[i])&&(hardwareCenter[i] > 0) && (hardwareStore[i] > 0)){ 
+					bestPrice[i]=hardwareCenter[i];
+					placeBestPrice[i]= Ferrec;
+					intention[i]=compareIntentionality[i];
+					}else if ((hardwareCenter[i] > hardwareStore[i])&&(hardwareStore[i] > 0) && (hardwareCenter[i] > 0)) {
+						bestPrice[i]=hardwareStore[i];
+						placeBestPrice[i]= FerreB;
+						intention[i]=compareIntentionality[i];
+						}else if (hardwareCenter[i] > 0) {
+							bestPrice[i]=hardwareCenter[i];
+							placeBestPrice[i]= Ferrec;
+							intention[i]=compareIntentionality[i];
+							} else if (hardwareStore[i] > 0){
+								bestPrice[i]=hardwareStore[i];
+								placeBestPrice[i]= FerreB;
+								intention[i]=compareIntentionality[i];
 								}
 			}
 			else
 			{
-				if((FerreteriaCentro[i]<= HomeCenter[i])&&(FerreteriaCentro[i]<=FerreteríaDelBarrio[i])  ){
-					if (FerreteriaCentro[i]> 0){
-						mejorPrecio[i]=FerreteriaCentro[i];
-						LugarMejorPrecio[i]= Ferrec;
-						intencion[i]=compararIntencionalidad[i];
-					}else if((HomeCenter[i] < FerreteríaDelBarrio[i])&&(HomeCenter[i] > 0) && (FerreteríaDelBarrio[i] > 0)){ 
-						mejorPrecio[i]= HomeCenter[i];
-						LugarMejorPrecio[i]= HomeC ;
-						intencion[i]=compararIntencionalidad[i];
-						}else if ((HomeCenter[i] > FerreteríaDelBarrio[i])&&(FerreteríaDelBarrio[i] > 0) && (HomeCenter[i] > 0)) {
-							mejorPrecio[i]=FerreteríaDelBarrio[i];
-							LugarMejorPrecio[i]= FerreB;
-							intencion[i]=compararIntencionalidad[i];
+				if((hardwareCenter[i]<= HomeCenter[i])&&(hardwareCenter[i]<=hardwareStore[i])  ){
+					if (hardwareCenter[i]> 0){
+						bestPrice[i]=hardwareCenter[i];
+						placeBestPrice[i]= Ferrec;
+						intention[i]=compareIntentionality[i];
+					}else if((HomeCenter[i] < hardwareStore[i])&&(HomeCenter[i] > 0) && (hardwareStore[i] > 0)){ 
+						bestPrice[i]= HomeCenter[i];
+						placeBestPrice[i]= HomeC ;
+						intention[i]=compareIntentionality[i];
+						}else if ((HomeCenter[i] > hardwareStore[i])&&(hardwareStore[i] > 0) && (HomeCenter[i] > 0)) {
+							bestPrice[i]=hardwareStore[i];
+							placeBestPrice[i]= FerreB;
+							intention[i]=compareIntentionality[i];
 							}else if (HomeCenter[i] > 0) {
-								mejorPrecio[i]= HomeCenter[i];
-								LugarMejorPrecio[i]= HomeC ;
-								intencion[i]=compararIntencionalidad[i];
-								} else if (FerreteríaDelBarrio[i] > 0){
-									mejorPrecio[i]=FerreteríaDelBarrio[i];
-									LugarMejorPrecio[i]= FerreB;
-									intencion[i]=compararIntencionalidad[i];
+								bestPrice[i]= HomeCenter[i];
+								placeBestPrice[i]= HomeC ;
+								intention[i]=compareIntentionality[i];
+								} else if (hardwareStore[i] > 0){
+									bestPrice[i]=hardwareStore[i];
+									placeBestPrice[i]= FerreB;
+									intention[i]=compareIntentionality[i];
 									}
 				} 
 				
 				else
 				{
-					if((FerreteríaDelBarrio[i]<= HomeCenter[i])&&(FerreteriaCentro[i]>=FerreteríaDelBarrio[i]) ){
-						if (FerreteríaDelBarrio[i] > 0){
-							mejorPrecio[i]=FerreteríaDelBarrio[i];
-							LugarMejorPrecio[i]= FerreB;
-							intencion[i]=compararIntencionalidad[i];
-							}else if((HomeCenter[i] < FerreteriaCentro[i])&&(HomeCenter[i] > 0) && (FerreteriaCentro[i] > 0)){ 
-								mejorPrecio[i]= HomeCenter[i];
-								LugarMejorPrecio[i]= HomeC ;
-								intencion[i]=compararIntencionalidad[i];
-								}else if ((HomeCenter[i] > FerreteriaCentro[i])&&(FerreteriaCentro[i] > 0) && (HomeCenter[i] > 0)) {
-									mejorPrecio[i]=FerreteriaCentro[i];
-									LugarMejorPrecio[i]= Ferrec;
-									intencion[i]=compararIntencionalidad[i];
+					if((hardwareStore[i]<= HomeCenter[i])&&(hardwareCenter[i]>=hardwareStore[i]) ){
+						if (hardwareStore[i] > 0){
+							bestPrice[i]=hardwareStore[i];
+							placeBestPrice[i]= FerreB;
+							intention[i]=compareIntentionality[i];
+							}else if((HomeCenter[i] < hardwareCenter[i])&&(HomeCenter[i] > 0) && (hardwareCenter[i] > 0)){ 
+								bestPrice[i]= HomeCenter[i];
+								placeBestPrice[i]= HomeC ;
+								intention[i]=compareIntentionality[i];
+								}else if ((HomeCenter[i] > hardwareCenter[i])&&(hardwareCenter[i] > 0) && (HomeCenter[i] > 0)) {
+									bestPrice[i]=hardwareCenter[i];
+									placeBestPrice[i]= Ferrec;
+									intention[i]=compareIntentionality[i];
 										}else if (HomeCenter[i] > 0) {
-											mejorPrecio[i]= HomeCenter[i];
-											LugarMejorPrecio[i]= HomeC ;
-											intencion[i]=compararIntencionalidad[i];
-											} else if (FerreteriaCentro[i] > 0){
-												mejorPrecio[i]=FerreteriaCentro[i];
-												LugarMejorPrecio[i]= Ferrec;
-												intencion[i]=compararIntencionalidad[i];
+											bestPrice[i]= HomeCenter[i];
+											placeBestPrice[i]= HomeC ;
+											intention[i]=compareIntentionality[i];
+											} else if (hardwareCenter[i] > 0){
+												bestPrice[i]=hardwareCenter[i];
+												placeBestPrice[i]= Ferrec;
+												intention[i]=compareIntentionality[i];
 												}
 						
 					}
@@ -268,322 +265,364 @@ public class Integradora{
 		}
 		
 	}
-	public static void mostrarEnPantalla ( String[] nombres, double[] precios,
-						String[] LugarMejorPrecio,String[] intencion,String[] casa ) {
-		int x = 1;
-		double costototal = 0;
+	public static void showOnScreen ( String[] names, double[] precios,
+						String[] placeBestPrice,String[] intention,String[] house ) {
+		int x = 1; // variable contadora
+		double totalCost = 0;
 		boolean completo = false;
-		int manoDeObraNegra= 0;
-		int manoDeObraBlanca= 0;
-		int manoDeObraPintura= 0;
-		int valorDomicilio = 0;
+		int blackWorkManShip= 0;
+		int whiteWorkforce= 0;
+		int workmanshipPainting= 0;
+		int addressValue = 0;
 		
 				
 		System.out.println("Los mejores precios y sus puntos de venta son : ");
 		for (int i = 0; i < precios.length && !completo; i++) {
 			if (precios[i]> 0){
-				if(nombres[i] != null) {
-				System.out.println( x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
+				if(names[i] != null) {
+				System.out.println( x + ". Nombre: " + names[i] + ". Precio: " + precios[i] + " Lugar de compra " +placeBestPrice[i] +"  "+  intention[i]);
 				x++;
-				costototal = costototal + precios[i];
+				totalCost = totalCost + precios[i];
 					}else {
 					completo=true;
 					}
 			}	
 		}
-		if (casa[0] == "Norte"){
-			if (costototal < 80000){
-				valorDomicilio = 120000 ;
+		if (house[0] == "North"){
+			if (totalCost < 80000){
+				addressValue = 120000 ;
 			}
-			else if((costototal < 300000)&& (costototal>80000)){
-				valorDomicilio = 28000 ;
+			else if((totalCost < 300000)&& (totalCost>80000)){
+				addressValue = 28000 ;
 			}
-			else if(costototal >= 300000){
-				valorDomicilio = 0 ;
+			else if(totalCost >= 300000){
+				addressValue = 0 ;
 			}
 			
 		}
-		else if  (casa[0] == "Centro"){
+		else if  (house[0] == "Center"){
 			
-				if (costototal < 50000){
-				valorDomicilio = 50000 ;
+				if (totalCost < 50000){
+				addressValue = 50000 ;
 				}
-					else if((costototal < 300000)&& (costototal>80000)){
-					valorDomicilio = 0 ;
+					else if((totalCost < 300000)&& (totalCost>80000)){
+					addressValue = 0 ;
 					}
-						else if(costototal >= 300000){
-						valorDomicilio = 0 ;
+						else if(totalCost >= 300000){
+						addressValue = 0 ;
 						}
 			
 			}
-			else if (casa[0] == "Sur"){
-				if (costototal < 80000){
-				valorDomicilio = 120000 ;
+			else if (house[0] == "South"){
+				if (totalCost < 80000){
+				addressValue = 120000 ;
 				}
-					else if((costototal < 300000)&& (costototal>80000)){
-					valorDomicilio = 55000 ;
+					else if((totalCost < 300000)&& (totalCost>80000)){
+					addressValue = 55000 ;
 					}
-						else if(costototal >= 300000){
-						valorDomicilio = 0 ;
+						else if(totalCost >= 300000){
+						addressValue = 0 ;
 						}
 						
 			}
 		
-		if (costototal > 0){
-			System.out.println("El costo de domicilio: "+ valorDomicilio);
+		if (totalCost > 0){
+			System.out.println("El costo de domicilio: "+ addressValue);
 		}
-		System.out.println("El costo de materiales es: "+ costototal);
+		System.out.println("El costo de materiales es: "+ totalCost);
 		
-		for (int i=0; i< intencion.length;i++){
-			if(intencion[i]== "Obra negra" ){
-				manoDeObraNegra = 1300000 ;
+		for (int i=0; i< intention.length;i++){
+			if(intention[i]== "Obra negra" ){
+				blackWorkManShip = 1300000 ;
 			}else{
-				if(intencion[i]== "Obra blanca" ){
-					manoDeObraBlanca = 2600000;
+				if(intention[i]== "Obra blanca" ){
+					whiteWorkforce = 2600000;
 				}
 				else{
-					if (intencion[i]== "Obra pintura" )
-					manoDeObraPintura = 980000;
+					if (intention[i]== "Obra pintura" )
+					workmanshipPainting = 980000;
 			
 				}
 			}
 			
 		}
-		if (costototal> 0){
-		costototal = costototal+manoDeObraBlanca+manoDeObraNegra+manoDeObraPintura+valorDomicilio;
-		System.out.println("El costo total es : "+ costototal);
+		if (totalCost> 0){
+		totalCost = totalCost+whiteWorkforce+blackWorkManShip+workmanshipPainting+addressValue;
+		System.out.println("El costo total es : "+ totalCost);
 		}
 	}
-	public static void mostrarEnPantallaObraNegra ( String[] nombres, String[] intencion ) {
+	public static void showOnScreenWorkBlack ( String[] names, String[] intention ) {
 		int x = 1;
 		
 		System.out.println("Los productos de la obra negra son:");
-		for (int i = 0; i < intencion.length ; i++) {
-			if( intencion[i] == OBRA_NEGRA) {
-				System.out.println( x + ". Nombre: " + nombres[i] );
+		for (int i = 0; i < intention.length ; i++) {
+			if( intention[i] == WORK_BLACK) {
+				System.out.println( x + ". Nombre: " + names[i] );
 				x++;
 			}
 		}
 	}
-	public static void mostrarEnPantallaObraBlanca ( String[] nombres, String[] intencion ) {
+	public static void showOnScreenWhiteWork ( String[] names, String[] intention ) {
 		int x = 1;
 		
 		System.out.println("productos de la obra blanca son:");
-		for (int i = 0; i < intencion.length; i++) {
-			if( intencion[i] == OBRA_BLANCA) {
-				System.out.println( x + ". Nombre: " + nombres[i]);
+		for (int i = 0; i < intention.length; i++) {
+			if( intention[i] == WORK_WHITE) {
+				System.out.println( x + ". Nombre: " + names[i]);
 				x++;
 			}
 		}
 	}
-	public static void mostrarEnPantallaObraPintura( String[] nombres, String[] intencion ) {
+	public static void showOnScreenWorkPainting( String[] names, String[] intention ) {
 		int x = 1;
 		
 		System.out.println("productos de  la obra pintura son:");
-		for (int i = 0; i < intencion.length ; i++) {
-			if( intencion[i] == OBRA_PINTURA) {
-				System.out.println( x + ". Nombre: " + nombres[i] );
+		for (int i = 0; i < intention.length ; i++) {
+			if( intention[i] == WORK_PAINTING) {
+				System.out.println( x + ". Nombre: " + names[i] );
 				x++;
 			
 			}
 		}
 	} 
-	public static void ValoresHomecenter( String[] nombres,double[] listaHomcenter,String[] LugarMejorPrecio,
-	String[] intencion,String[] casa ) {
+	public static void homecenterValues( String[] names,double[] listHomecenter,String[] placeBestPrice,
+	String[] intention,String[] house ) {
 		int x = 1;
-		double costototal = 0;
-		int manoDeObraNegra= 0;
-		int manoDeObraBlanca= 0;
-		int manoDeObraPintura= 0;
-		int valorDomicilio = 0;
-		int productoFaltante = 1 ;
+		double totalCost = 0;
+		int blackWorkManShip= 0;
+		int whiteWorkforce= 0;
+		int workmanshipPainting= 0;
+		int addressValue = 0;
+		int missingProduct = 0 ;
 		boolean completo = false;
 		System.out.println("Lista de precios en HomeCenter:");
-		for (int i = 0; i < listaHomcenter.length ; i++) {
-			if(nombres[i] != null) {
-			System.out.println( x + ". Nombre: " + nombres[i] + "  Valor:  "+ listaHomcenter[i] + " para : "+  intencion[i]);
+		for (int i = 0; i < listHomecenter.length ; i++) {
+			if(names[i] != null) {
+			System.out.println( x + ". Nombre: " + names[i] + "  Valor:  "+ listHomecenter[i] + " para : "+  intention[i]);
 				x++;
-				costototal = costototal + listaHomcenter[i];
+				totalCost = totalCost + listHomecenter[i];
 			}
 		}
-		System.out.println("El costo total en materiales en Homecenter es : " + costototal);
-		for (int i=0; i< intencion.length;i++){
-			if(intencion[i]== "Obra negra" ){
-				if (listaHomcenter[i]> 0)
-					manoDeObraNegra = 1300000 ;
+		System.out.println("El costo total en materiales en Homecenter es : " + totalCost);
+		for (int i=0; i< intention.length;i++){
+			if(intention[i]== "Obra negra" ){
+				if (listHomecenter[i]> 0)
+					blackWorkManShip = 1300000 ;
 				else 
-					productoFaltante++;
+					missingProduct=1 + missingProduct;
 			}else{
-				if(intencion[i]== "Obra blanca" ){
-					if (listaHomcenter[i]> 0)
-						manoDeObraBlanca = 2600000;
+				if(intention[i]== "Obra blanca" ){
+					if (listHomecenter[i]> 0)
+						whiteWorkforce = 2600000;
 					else 
-						productoFaltante++;
+						missingProduct=1 + missingProduct ;
 				}
 				else{
-					if (intencion[i]== "Obra pintura" )
-						if (listaHomcenter[i]> 0)
-							manoDeObraPintura = 980000;
+					if (intention[i]== "Obra pintura" )
+						if (listHomecenter[i]> 0)
+							workmanshipPainting = 980000;
 						else
-							productoFaltante++;
+							missingProduct=1 + missingProduct;
 			
 				}
 			}
 			
 		}
-		if (productoFaltante > 0);{
-			System.out.println("En este establecimiento no puede conseguir "+ productoFaltante+ " productos" );
+		if (missingProduct > 0);{
+			System.out.println("En este establecimiento no puede conseguir "+ missingProduct+ " productos" );
 		}
-		if (costototal > 0){
-		System.out.println("El costo de domicilio: "+ valorDomicilio);
-		costototal = costototal+manoDeObraBlanca+manoDeObraNegra+manoDeObraPintura+valorDomicilio;
-		System.out.println("El costo total es : "+ costototal);
+		if (totalCost > 0){
+		System.out.println("El costo de domicilio: "+ addressValue);
+		totalCost = totalCost+whiteWorkforce+blackWorkManShip+workmanshipPainting+addressValue;
+		System.out.println("El costo total es : "+ totalCost);
 		}else 
 			System.out.println("No tiene valor, por que no hay productos disponibles" );
 	}
-	public static void ValoresFerreteriaBarrio( String[] nombres,double[] listaFerreteriBarrio,
-	String[] LugarMejorPrecio,String[] intencion ,String[] casa) {
+	public static void neighborhoodHardwareValues( String[] names,double[] neighborhoodHardwarList,
+	String[] placeBestPrice,String[] intention ,String[] house) {
 		int x = 1;
-		double costototal = 0;
-		int manoDeObraNegra= 0;
-		int manoDeObraBlanca= 0;
-		int manoDeObraPintura= 0;
-		int valorDomicilio = 0;
-		int productoFaltante = 1 ;
+		double totalCost = 0;
+		int blackWorkManShip= 0;
+		int whiteWorkforce= 0;
+		int workmanshipPainting= 0;
+		int addressValue = 0;
+		int missingProduct = 0 ;
 		
 		System.out.println("Lista de precios en ferreteria del barrio :");
-		for (int i = 0; i < listaFerreteriBarrio.length ; i++) {
-			if(nombres[i] != null) {
-			System.out.println( x + ". Nombre: " + nombres[i] + " Valor : "+ listaFerreteriBarrio[i] + " para : " + intencion[i]);
+		for (int i = 0; i < neighborhoodHardwarList.length ; i++) {
+			if(names[i] != null) {
+			System.out.println( x + ". Nombre: " + names[i] + " Valor : "+ neighborhoodHardwarList[i] + " para : " + intention[i]);
 				x++;
-				costototal = costototal + listaFerreteriBarrio[i];
+				totalCost = totalCost + neighborhoodHardwarList[i];
 			}
 		}
-		System.out.println("El costo total en materiales en ferreteria del barrio es : " + costototal);
-		for (int i=0; i< intencion.length;i++){
-			if(intencion[i]== "Obra negra" ){
-				if (listaFerreteriBarrio[i]> 0)
-					manoDeObraNegra = 1300000 ;
-				else 
-					productoFaltante++;
-			}else{
-				if(intencion[i]== "Obra blanca" ){
-					if (listaFerreteriBarrio[i]> 0)
-						manoDeObraBlanca = 2600000;
-					else 
-						productoFaltante++;
+		System.out.println("El costo total en materiales en ferreteria del barrio es : " + totalCost);
+		if (house[0] == "North"){
+			if (totalCost < 80000){
+				addressValue = 120000 ;
+			}
+			else if((totalCost < 300000)&& (totalCost>80000)){
+				addressValue = 28000 ;
+			}
+			else if(totalCost >= 300000){
+				addressValue = 0 ;
+			}
+			
+		}
+		else if  (house[0] == "Center"){
+			
+				if (totalCost < 80000){
+				addressValue = 50000 ;
 				}
-				else{
-					if (intencion[i]== "Obra pintura" )
-						if (listaFerreteriBarrio[i]> 0)
-							manoDeObraPintura = 980000;
-						else
-							productoFaltante++;
-			
-				}
-			}
-			
-		}
-		if (productoFaltante > 0);{
-			System.out.println("En este establecimiento no puede conseguir "+ productoFaltante+ " productos" );
-		}
-		if (costototal > 0){
-		System.out.println("El costo de domicilio: "+ valorDomicilio);
-		costototal = costototal+manoDeObraBlanca+manoDeObraNegra+manoDeObraPintura+valorDomicilio;
-		System.out.println("El costo total es : "+ costototal);
-		}else 
-			System.out.println("No tiene valor, por que no hay productos disponibles" );
-	}
-	public static void ValoresFerreteriaCentro( String[] nombres,double[] listaFerreteriaCentro,
-	String[] LugarMejorPrecio, String[] intencion,String[] casa ) {
-		int x = 1;
-		int productoFaltante = 1;
-		double costototal = 0;
-		int manoDeObraNegra= 0;
-		int manoDeObraBlanca= 0;
-		int manoDeObraPintura= 0;
-		int valorDomicilio = 0;
-		boolean completo = false;
-		System.out.println("Lista de precios en ferreteria del centro:");
-		for (int i = 0; i < listaFerreteriaCentro.length ; i++) {
-			if(nombres[i] != null) {
-				System.out.println( x + ". Nombre: " + nombres[i] + " Valor : "+ listaFerreteriaCentro[i] +" para:  "+  intencion[i]);
-				x++;
-				costototal = costototal + listaFerreteriaCentro[i];
-			}
-		}
-		
-		if (casa[0] == "Norte"){
-			if (costototal < 80000){
-				valorDomicilio = 120000 ;
-			}
-			else if((costototal < 300000)&& (costototal>80000)){
-				valorDomicilio = 28000 ;
-			}
-			else if(costototal >= 300000){
-				valorDomicilio = 0 ;
-			}
-			
-		}
-		else if  (casa[0] == "Centro"){
-			
-				if (costototal < 50000){
-				valorDomicilio = 50000 ;
-				}
-					else if((costototal < 300000)&& (costototal>80000)){
-					valorDomicilio = 0 ;
+					else if((totalCost < 300000)&& (totalCost>80000)){
+					addressValue = 0 ;
 					}
-						else if(costototal >= 300000){
-						valorDomicilio = 0 ;
+						else if(totalCost >= 300000){
+						addressValue = 0 ;
 						}
 			
 			}
-			else if (casa[0] == "Sur"){
-				if (costototal < 80000){
-				valorDomicilio = 120000 ;
+			else if (house[0] == "South"){
+				if (totalCost < 80000){
+				addressValue = 120000 ;
 				}
-					else if((costototal < 300000)&& (costototal>80000)){
-					valorDomicilio = 55000 ;
+					else if((totalCost < 300000)&& (totalCost>80000)){
+					addressValue = 55000 ;
 					}
-						else if(costototal >= 300000){
-						valorDomicilio = 0 ;
+						else if(totalCost >= 300000){
+						addressValue = 0 ;
+						}
+						
+			}
+		for (int i=0; i< intention.length;i++){
+			if(intention[i]== "Obra negra" ){
+				if (neighborhoodHardwarList[i]> 0)
+					blackWorkManShip = 1300000 ;
+				else 
+					missingProduct++;
+			}else{
+				if(intention[i]== "Obra blanca" ){
+					if (neighborhoodHardwarList[i]> 0)
+						whiteWorkforce = 2600000;
+					else 
+						missingProduct++;
+				}
+				else{
+					if (intention[i]== "Obra pintura" )
+						if (neighborhoodHardwarList[i]> 0)
+							workmanshipPainting = 980000;
+						else
+							missingProduct++;
+			
+				}
+			}
+			
+		}
+		if (missingProduct > 0);{
+			System.out.println("En este establecimiento no puede conseguir "+ missingProduct+ " productos" );
+		}
+		if (totalCost > 0){
+		System.out.println("El costo de domicilio: "+ addressValue);
+		totalCost = totalCost+whiteWorkforce+blackWorkManShip+workmanshipPainting+addressValue;
+		System.out.println("El costo total es : "+ totalCost);
+		}else 
+			System.out.println("No tiene valor, por que no hay productos disponibles" );
+	}
+	public static void valuesHardwareCenter( String[] names,double[] hardwareCenterList,
+	String[] placeBestPrice, String[] intention,String[] house ) {
+		int x = 1;
+		int missingProduct = 0;
+		double totalCost = 0;
+		int blackWorkManShip= 0;
+		int whiteWorkforce= 0;
+		int workmanshipPainting= 0;
+		int addressValue = 0;
+		boolean completo = false;
+		System.out.println("Lista de precios en ferreteria del centro:");
+		for (int i = 0; i < hardwareCenterList.length ; i++) {
+			if(names[i] != null) {
+				System.out.println( x + ". Nombre: " + names[i] + " Valor : "+ hardwareCenterList[i] +" para:  "+  intention[i]);
+				x++;
+				totalCost = totalCost + hardwareCenterList[i];
+			}
+		}
+		
+		if (house[0] == "North"){
+			if (totalCost < 80000){
+				addressValue = 120000 ;
+			}
+			else if((totalCost < 300000)&& (totalCost>80000)){
+				addressValue = 28000 ;
+			}
+			else if(totalCost >= 300000){
+				addressValue = 0 ;
+			}
+			
+		}
+		else if  (house[0] == "Center"){
+			
+				if (totalCost < 80000){
+				addressValue = 50000 ;
+				}
+					else if((totalCost < 300000)&& (totalCost>80000)){
+					addressValue = 0 ;
+					}
+						else if(totalCost >= 300000){
+						addressValue = 0 ;
+						}
+			
+			}
+			else if (house[0] == "South"){
+				if (totalCost < 80000){
+				addressValue = 120000 ;
+				}
+					else if((totalCost < 300000)&& (totalCost>80000)){
+					addressValue = 55000 ;
+					}
+						else if(totalCost >= 300000){
+						addressValue = 0 ;
 						}
 						
 			}	
 		
-		System.out.println("El costo total en materiales en ferreteria del centro es :" + costototal);
+		System.out.println("El costo total en materiales en ferreteria del centro es :" + totalCost);
 		
-		for (int i=0; i< intencion.length;i++){
-			if(intencion[i]== "Obra negra" ){
-				if (listaFerreteriaCentro[i]> 0)
-					manoDeObraNegra = 1300000 ;
-				else 
-					productoFaltante++;
+		for (int i=0; i< intention.length;i++){
+			if(intention[i]== "Obra negra" ){
+				if (hardwareCenterList[i]> 0){
+					blackWorkManShip = 1300000 ;
+				}	
+				else if(hardwareCenterList[i] == 0) {
+							missingProduct++;
+				}	
 			}else{
-				if(intencion[i]== "Obra blanca" ){
-					if (listaFerreteriaCentro[i]> 0)
-						manoDeObraBlanca = 2600000;
-					else 
-						productoFaltante++;
+				if(intention[i]== "Obra blanca" ){
+					if (hardwareCenterList[i]> 0)
+						whiteWorkforce = 2600000;
+					else if(hardwareCenterList[i] == 0) {
+							missingProduct++;
+					}
 				}
 				else{
-					if (intencion[i]== "Obra pintura" )
-						if (listaFerreteriaCentro[i]> 0)
-							manoDeObraPintura = 980000;
-						else
-							productoFaltante++;
-			
+					if (intention[i]== "Obra pintura" ){
+						if (hardwareCenterList[i]> 0){
+							workmanshipPainting = 980000;
+						}	
+						else if(hardwareCenterList[i] == 0) {
+							missingProduct++;
+						}
+					}	
 				}
 			}
 			
 		}
-		if (productoFaltante > 0);{
-			System.out.println("En este establecimiento no puede conseguir "+ productoFaltante+ " productos" );
+		if (missingProduct > 0);{
+			System.out.println("En este establecimiento no puede conseguir "+ missingProduct+ " productos" );
 		}
-		if (costototal > 0){
-		System.out.println("El costo de domicilio: "+ valorDomicilio);
-		costototal = costototal+manoDeObraBlanca+manoDeObraNegra+manoDeObraPintura+valorDomicilio;
-		System.out.println("El costo total es : "+ costototal);
+		if (totalCost > 0){
+		System.out.println("El costo de domicilio: "+ addressValue);
+		totalCost = totalCost+whiteWorkforce+blackWorkManShip+workmanshipPainting+addressValue;
+		System.out.println("El costo total es : "+ totalCost);
 		}else 
 			System.out.println("No tiene valor, por que no hay productos disponibles" );
 		
