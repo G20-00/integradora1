@@ -67,6 +67,13 @@ public class Integradora{
 		
 	
 	}
+	/**
+	*getPlace the location of the house
+	*<b> pre: </b>
+	*<b> pos: </b> the house is located
+	*@param  scan it's the scanner
+	*@return String placeObtained
+	*/
 	public static String getPlace(Scanner scan){
 	String placeObtained = null ;	
 	place l = null ;
@@ -94,6 +101,13 @@ public class Integradora{
 		}
 		return placeObtained;
 	}
+	/**
+	*getIntentionality save product utility
+	*<b> pre: </b>
+	*<b> pos: </b> get the use for the product
+	*@param  scan it's the scanner
+	*@return intention  product utility
+	*/
 	public static String getIntentionality(Scanner scan) {
 		boolean selected = false;
 		String intention = null;
@@ -120,6 +134,20 @@ public class Integradora{
 		}
 		return intention;
 	}
+	/**
+	*compareProducts save the values ​​of each store
+	*<b> pre: </b>
+	*<b> pos: </b> generates least value array and arrays for store values
+	*@param scan it's the scanner
+	*@param listHomecenter arrangement in charge of saving the value of the Homcenter 
+	*@param neighborhoodHardwarList arrangement in charge of saving the value of the neighborhood hardware store
+	*@param placeBestPrice save the best price place
+	*@param bestPrice save the best price
+	*@param	names save the name of products 
+	*@param house save the location of the house
+	*@param hardwareCenterList arrangement in charge of saving the value of the center hardware store
+	*@param intention save product utility
+	*/
 	public static void compareProducts(Scanner scan, double[] listHomecenter,double[] neighborhoodHardwarList,double[] hardwareCenterList,String[] intention,
 	String[] names, double[] bestPrice,String[] placeBestPrice,String[] house) {
 		System.out.println("Compara los productos:");
@@ -174,9 +202,25 @@ public class Integradora{
 		}
 		
 		
-		comparisonValues(intention ,compareIntentionality , HomeCenter , hardwareCenter , hardwareStore , compareName , names , bestPrice , quantity , placeBestPrice);
+		comparisonValues(intention ,compareIntentionality , HomeCenter , hardwareCenter , hardwareStore  , names , bestPrice , quantity , placeBestPrice);
 	}
-	public static void comparisonValues(String[] intention ,String[] compareIntentionality,double[] HomeCenter, double[]hardwareCenter , double[] hardwareStore ,String[] compareName 
+	
+	/**
+	*compareProducts save the values ​​of each store
+	*<b> pre: </b>
+	*<b> pos: </b> generates least value array  
+	*@param compareIntentionality save the purposes for each product
+	*@param HomeCenter arrangement in charge of saving the value of the Homcenter 
+	*@param hardwareStore arrangement in charge of saving the value of the neighborhood hardware store
+	*@param placeBestPrice save the best price place
+	*@param bestPrice save the best price
+	*@param	names save the name of products 
+	*@param quantity save the location of the house
+	*@param hardwareCenter arrangement in charge of saving the value of the center hardware store
+	*@param intention save product utility	
+	*/
+	
+	public static void comparisonValues(String[] intention ,String[] compareIntentionality,double[] HomeCenter, double[]hardwareCenter , double[] hardwareStore 
 			, String[] names, double[] bestPrice , int quantity,String[] placeBestPrice) {
 				
 		double lowerValue = 0;
@@ -265,7 +309,18 @@ public class Integradora{
 		}
 		
 	}
-	public static void showOnScreen ( String[] names, double[] precios,
+	/**
+	*showOnScreen print the arrangement with the lowest prices
+	*<b> pre: </b> must have products entered and prices greater than 0
+	*<b> pos: </b> print the arrangement with the lowest prices
+	*@param names  the names of the products
+	*@param bestPrice the better price
+	*@param placeBestPrice   the place that has the cheapest prices
+	*@param intention save product utility	
+	*@param house where is the house located
+	
+	*/
+	public static void showOnScreen ( String[] names, double[] bestPrice,
 						String[] placeBestPrice,String[] intention,String[] house ) {
 		int x = 1; // variable contadora
 		double totalCost = 0;
@@ -277,12 +332,12 @@ public class Integradora{
 		
 				
 		System.out.println("Los mejores precios y sus puntos de venta son : ");
-		for (int i = 0; i < precios.length && !completo; i++) {
-			if (precios[i]> 0){
+		for (int i = 0; i < bestPrice.length && !completo; i++) {
+			if (bestPrice[i]> 0){
 				if(names[i] != null) {
-				System.out.println( x + ". Nombre: " + names[i] + ". Precio: " + precios[i] + " Lugar de compra " +placeBestPrice[i] +"  "+  intention[i]);
+				System.out.println( x + ". Nombre: " + names[i] + ". Precio: " + bestPrice[i] + " Lugar de compra " +placeBestPrice[i] +"  "+  intention[i]);
 				x++;
-				totalCost = totalCost + precios[i];
+				totalCost = totalCost + bestPrice[i];
 					}else {
 					completo=true;
 					}
@@ -351,6 +406,14 @@ public class Integradora{
 		System.out.println("El costo total es : "+ totalCost);
 		}
 	}
+	
+/**
+	*showOnScreenWorkBlack print the names of the black work
+	*<b> pre: </b> must have names other than null
+	*<b> pos: </b> prints on screen the materials of the black work
+	*@param names  the names of the products
+	*@param intention save product utility	
+	*/
 	public static void showOnScreenWorkBlack ( String[] names, String[] intention ) {
 		int x = 1;
 		
@@ -362,6 +425,13 @@ public class Integradora{
 			}
 		}
 	}
+	/**
+	*showOnScreenWhiteWork print the names of the with work
+	*<b> pre: </b> must have names other than null
+	*<b> pos: </b> prints on screen the materials of the with work
+	*@param names  the names of the products
+	*@param intention save product utility	
+	*/
 	public static void showOnScreenWhiteWork ( String[] names, String[] intention ) {
 		int x = 1;
 		
@@ -373,6 +443,13 @@ public class Integradora{
 			}
 		}
 	}
+	/**
+	*showOnScreenWorkPainting print the names of the Painting work
+	*<b> pre: </b> must have names other than null
+	*<b> pos: </b> prints on screen the materials of the Painting work
+	*@param names  the names of the products
+	*@param intention save product utility	
+	*/
 	public static void showOnScreenWorkPainting( String[] names, String[] intention ) {
 		int x = 1;
 		
@@ -385,6 +462,16 @@ public class Integradora{
 			}
 		}
 	} 
+	/**
+	*homecenterValues  print homecenter products and values
+	*<b> pre: </b> must have products entered and prices greater than 0
+	*<b> pos: </b>  
+	*@param listHomecenter arrangement in charge of saving the value of the Homcenter 
+	*@param placeBestPrice save the best price place
+	*@param	names save the name of products 
+	*@param intention save product utility	
+	*@param house save the location of the house
+	*/
 	public static void homecenterValues( String[] names,double[] listHomecenter,String[] placeBestPrice,
 	String[] intention,String[] house ) {
 		int x = 1;
@@ -404,6 +491,43 @@ public class Integradora{
 			}
 		}
 		System.out.println("El costo total en materiales en Homecenter es : " + totalCost);
+		if (house[0] == "North"){
+			if (totalCost < 80000){
+				addressValue = 120000 ;
+			}
+			else if((totalCost < 300000)&& (totalCost>80000)){
+				addressValue = 28000 ;
+			}
+			else if(totalCost >= 300000){
+				addressValue = 0 ;
+			}
+			
+		}
+		else if  (house[0] == "Center"){
+			
+				if (totalCost < 80000){
+				addressValue = 50000 ;
+				}
+					else if((totalCost < 300000)&& (totalCost>80000)){
+					addressValue = 0 ;
+					}
+						else if(totalCost >= 300000){
+						addressValue = 0 ;
+						}
+			
+			}
+			else if (house[0] == "South"){
+				if (totalCost < 80000){
+				addressValue = 120000 ;
+				}
+					else if((totalCost < 300000)&& (totalCost>80000)){
+					addressValue = 55000 ;
+					}
+						else if(totalCost >= 300000){
+						addressValue = 0 ;
+						}
+						
+			}
 		for (int i=0; i< intention.length;i++){
 			if(intention[i]== "Obra negra" ){
 				if (listHomecenter[i]> 0)
@@ -438,6 +562,16 @@ public class Integradora{
 		}else 
 			System.out.println("No tiene valor, por que no hay productos disponibles" );
 	}
+	/**
+	* neighborhoodHardwareValues print neighborhood Hardware Values products and values
+	*<b> pre: </b> must have products entered and prices greater than 0
+	*<b> pos: </b>   
+	*@param neighborhoodHardwarList arrangement in charge of saving the value of the neighborhood Hardwar List 
+	*@param placeBestPrice save the best price place
+	*@param	names save the name of products 
+	*@param intention save product utility	
+	*@param house save the location of the house
+	*/
 	public static void neighborhoodHardwareValues( String[] names,double[] neighborhoodHardwarList,
 	String[] placeBestPrice,String[] intention ,String[] house) {
 		int x = 1;
@@ -528,6 +662,16 @@ public class Integradora{
 		}else 
 			System.out.println("No tiene valor, por que no hay productos disponibles" );
 	}
+	/**
+	* valuesHardwareCenter print values Hardware Center products and values
+	*<b> pre: </b> must have products entered and prices greater than 0
+	*<b> pos: </b>  
+	*@param hardwareCenterList arrangement in charge of saving the value of the hardware Center List 
+	*@param placeBestPrice save the best price place
+	*@param	names save the name of products 
+	*@param intention save product utility	
+	*@param house save the location of the house
+	*/
 	public static void valuesHardwareCenter( String[] names,double[] hardwareCenterList,
 	String[] placeBestPrice, String[] intention,String[] house ) {
 		int x = 1;
@@ -616,6 +760,7 @@ public class Integradora{
 			}
 			
 		}
+		
 		if (missingProduct > 0);{
 			System.out.println("En este establecimiento no puede conseguir "+ missingProduct+ " productos" );
 		}
