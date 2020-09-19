@@ -28,7 +28,7 @@ public class Integradora{
 			System.out.println("5. Mostrar  productos para obra pintura.");
 			System.out.println("6. Mostrar  precios de Homcenter");
 			System.out.println("7. Mostrar  precios de ferreteria del barrio.");
-			System.out.println("8. Mostrar mejores de ferreteria del centro.");
+			System.out.println("8. Mostrar  precios de ferreteria del centro.");
 			System.out.println("9. Finalizar programa.");
 			
 			int opcion =  Integer.parseInt(scan.nextLine());
@@ -36,7 +36,7 @@ public class Integradora{
 			case 1: compararProductos(scan,listaHomcenter,listaFerreteriBarrio,listaFerreteriaCentro, intencion 
 					, nombres, mejorPrecio,LugarMejorPrecio,casa);
 					break;
-			case 2: mostrarEnPantalla(scan,nombres, mejorPrecio,LugarMejorPrecio,intencion,casa);					
+			case 2: mostrarEnPantalla(nombres, mejorPrecio,LugarMejorPrecio,intencion,casa);					
 					System.out.println();
 					break;
 			case 3: mostrarEnPantallaObraNegra( nombres,intencion);
@@ -48,13 +48,13 @@ public class Integradora{
 			case 5: mostrarEnPantallaObraPintura( nombres, intencion);
 					System.out.println();
 					break;		
-			case 6: ValoresHomecenter( nombres,listaHomcenter,LugarMejorPrecio, intencion);
+			case 6: ValoresHomecenter( nombres,listaHomcenter,LugarMejorPrecio, intencion , casa);
 					System.out.println();
 					break;
-			case 7: ValoresFerreteriaBarrio( nombres,listaFerreteriBarrio,LugarMejorPrecio, intencion);
+			case 7: ValoresFerreteriaBarrio( nombres,listaFerreteriBarrio,LugarMejorPrecio, intencion ,casa);
 					System.out.println();
 					break;
-			case 8: ValoresFerreteriaCentro( nombres,listaFerreteriaCentro,LugarMejorPrecio, intencion);
+			case 8: ValoresFerreteriaCentro( nombres,listaFerreteriaCentro,LugarMejorPrecio, intencion , casa);
 					System.out.println();
 					break;		
 			case 9: run = false;
@@ -126,7 +126,12 @@ public class Integradora{
 	public static void compararProductos(Scanner scan, double[] listaHomcenter,double[] listaFerreteriBarrio,double[] listaFerreteriaCentro,String[] intencion,
 	String[] nombres, double[] mejorPrecio,String[] LugarMejorPrecio,String[] casa) {
 		System.out.println("Compara los productos:");
-		System.out.println("Cuantos productos ingresaras para comparar?");
+		
+		System.out.println( " ¿En que parte se debe entregar el domicilio?" );
+		
+		String lugar = obtenerLugar(scan );
+		
+		System.out.println("¿Cuantos productos ingresaras para comparar?");
 		
 		int cantidad = Integer.parseInt(scan.nextLine());
 		double[] HomeCenter = new double[cantidad];
@@ -136,7 +141,7 @@ public class Integradora{
 		String[] compararIntencionalidad = new String[cantidad];
 		
 		double precioUnitario= 0;
-		String lugar = obtenerLugar(scan );
+		
 		casa[0] = lugar;
 		
 		for(int i = 0; i<cantidad; i++) {
@@ -149,6 +154,7 @@ public class Integradora{
 			
 			System.out.println("Cuantos unidades necesita del producto");
 			int Unidades = Integer.parseInt(scan.nextLine());
+			if (Unidades> 0){
 			
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"En HomeCenter");
 			precioUnitario = Double.parseDouble(scan.nextLine());
@@ -164,7 +170,9 @@ public class Integradora{
 			precioUnitario = Double.parseDouble(scan.nextLine());
 			FerreteríaDelBarrio[i] = precioUnitario * Unidades;
 			listaFerreteriBarrio[i]= FerreteríaDelBarrio[i];
-			
+			}
+			else 
+				System.out.println("Las unidades que necesita, no son posibles ");
 			
 		}
 		
@@ -176,29 +184,83 @@ public class Integradora{
 				
 		double menorValor = 0;
 		
-		String HomeC = " en Homcenter";
+		String HomeC = " en Homecenter";
 		String Ferrec = " en Ferreteria centro ";
 		String FerreB = "en Ferreteria del barrio";
 		for (int i = 0; i < cantidad; i++) {
-		if((HomeCenter[i] <= FerreteriaCentro[i]) &&(HomeCenter[i] <= FerreteríaDelBarrio[i]) && (HomeCenter[i] != 0)) {
-				mejorPrecio[i]= HomeCenter[i];
-				LugarMejorPrecio[i]= HomeC ;
-				intencion[i]=compararIntencionalidad[i];
-			}
-			else
-			{
-				if((FerreteriaCentro[i]<= HomeCenter[i])&&(FerreteriaCentro[i]<=FerreteríaDelBarrio[i]) && (FerreteriaCentro[i] != 0 )){
+		if((HomeCenter[i] <= FerreteriaCentro[i]) &&(HomeCenter[i] <= FerreteríaDelBarrio[i]) ) {
+				if (HomeCenter[i] > 0) {
+					mejorPrecio[i]= HomeCenter[i];
+					LugarMejorPrecio[i]= HomeC ;
+					intencion[i]=compararIntencionalidad[i];
+				}else if((FerreteriaCentro[i] < FerreteríaDelBarrio[i])&&(FerreteriaCentro[i] > 0) && (FerreteríaDelBarrio[i] > 0)){ 
 					mejorPrecio[i]=FerreteriaCentro[i];
 					LugarMejorPrecio[i]= Ferrec;
 					intencion[i]=compararIntencionalidad[i];
+					}else if ((FerreteriaCentro[i] > FerreteríaDelBarrio[i])&&(FerreteríaDelBarrio[i] > 0) && (FerreteriaCentro[i] > 0)) {
+						mejorPrecio[i]=FerreteríaDelBarrio[i];
+						LugarMejorPrecio[i]= FerreB;
+						intencion[i]=compararIntencionalidad[i];
+						}else if (FerreteriaCentro[i] > 0) {
+							mejorPrecio[i]=FerreteriaCentro[i];
+							LugarMejorPrecio[i]= Ferrec;
+							intencion[i]=compararIntencionalidad[i];
+							} else if (FerreteríaDelBarrio[i] > 0){
+								mejorPrecio[i]=FerreteríaDelBarrio[i];
+								LugarMejorPrecio[i]= FerreB;
+								intencion[i]=compararIntencionalidad[i];
+								}
+			}
+			else
+			{
+				if((FerreteriaCentro[i]<= HomeCenter[i])&&(FerreteriaCentro[i]<=FerreteríaDelBarrio[i])  ){
+					if (FerreteriaCentro[i]> 0){
+						mejorPrecio[i]=FerreteriaCentro[i];
+						LugarMejorPrecio[i]= Ferrec;
+						intencion[i]=compararIntencionalidad[i];
+					}else if((HomeCenter[i] < FerreteríaDelBarrio[i])&&(HomeCenter[i] > 0) && (FerreteríaDelBarrio[i] > 0)){ 
+						mejorPrecio[i]= HomeCenter[i];
+						LugarMejorPrecio[i]= HomeC ;
+						intencion[i]=compararIntencionalidad[i];
+						}else if ((HomeCenter[i] > FerreteríaDelBarrio[i])&&(FerreteríaDelBarrio[i] > 0) && (HomeCenter[i] > 0)) {
+							mejorPrecio[i]=FerreteríaDelBarrio[i];
+							LugarMejorPrecio[i]= FerreB;
+							intencion[i]=compararIntencionalidad[i];
+							}else if (HomeCenter[i] > 0) {
+								mejorPrecio[i]= HomeCenter[i];
+								LugarMejorPrecio[i]= HomeC ;
+								intencion[i]=compararIntencionalidad[i];
+								} else if (FerreteríaDelBarrio[i] > 0){
+									mejorPrecio[i]=FerreteríaDelBarrio[i];
+									LugarMejorPrecio[i]= FerreB;
+									intencion[i]=compararIntencionalidad[i];
+									}
 				} 
 				
 				else
 				{
-					if((FerreteríaDelBarrio[i]<= HomeCenter[i])&&(FerreteriaCentro[i]>=FerreteríaDelBarrio[i]) && (FerreteríaDelBarrio[i] != 0)){
-						mejorPrecio[i]=FerreteríaDelBarrio[i];
-						LugarMejorPrecio[i]= FerreB;
-						intencion[i]=compararIntencionalidad[i];
+					if((FerreteríaDelBarrio[i]<= HomeCenter[i])&&(FerreteriaCentro[i]>=FerreteríaDelBarrio[i]) ){
+						if (FerreteríaDelBarrio[i] > 0){
+							mejorPrecio[i]=FerreteríaDelBarrio[i];
+							LugarMejorPrecio[i]= FerreB;
+							intencion[i]=compararIntencionalidad[i];
+							}else if((HomeCenter[i] < FerreteriaCentro[i])&&(HomeCenter[i] > 0) && (FerreteriaCentro[i] > 0)){ 
+								mejorPrecio[i]= HomeCenter[i];
+								LugarMejorPrecio[i]= HomeC ;
+								intencion[i]=compararIntencionalidad[i];
+								}else if ((HomeCenter[i] > FerreteriaCentro[i])&&(FerreteriaCentro[i] > 0) && (HomeCenter[i] > 0)) {
+									mejorPrecio[i]=FerreteriaCentro[i];
+									LugarMejorPrecio[i]= Ferrec;
+									intencion[i]=compararIntencionalidad[i];
+										}else if (HomeCenter[i] > 0) {
+											mejorPrecio[i]= HomeCenter[i];
+											LugarMejorPrecio[i]= HomeC ;
+											intencion[i]=compararIntencionalidad[i];
+											} else if (FerreteriaCentro[i] > 0){
+												mejorPrecio[i]=FerreteriaCentro[i];
+												LugarMejorPrecio[i]= Ferrec;
+												intencion[i]=compararIntencionalidad[i];
+												}
 						
 					}
 				}
@@ -206,7 +268,7 @@ public class Integradora{
 		}
 		
 	}
-	public static void mostrarEnPantalla ( Scanner scan,String[] nombres, double[] precios,
+	public static void mostrarEnPantalla ( String[] nombres, double[] precios,
 						String[] LugarMejorPrecio,String[] intencion,String[] casa ) {
 		int x = 1;
 		double costototal = 0;
@@ -219,13 +281,15 @@ public class Integradora{
 				
 		System.out.println("Los mejores precios y sus puntos de venta son : ");
 		for (int i = 0; i < precios.length && !completo; i++) {
-			if(nombres[i] != null) {
+			if (precios[i]> 0){
+				if(nombres[i] != null) {
 				System.out.println( x + ". Nombre: " + nombres[i] + ". Precio: " + precios[i] + " Lugar de compra " +LugarMejorPrecio[i] +"  "+  intencion[i]);
 				x++;
-			costototal = costototal + precios[i];
-			}else {
-				completo=true;
-			}
+				costototal = costototal + precios[i];
+					}else {
+					completo=true;
+					}
+			}	
 		}
 		if (casa[0] == "Norte"){
 			if (costototal < 80000){
@@ -239,7 +303,35 @@ public class Integradora{
 			}
 			
 		}
-		System.out.println("El costo de domicilio: "+ valorDomicilio);
+		else if  (casa[0] == "Centro"){
+			
+				if (costototal < 50000){
+				valorDomicilio = 50000 ;
+				}
+					else if((costototal < 300000)&& (costototal>80000)){
+					valorDomicilio = 0 ;
+					}
+						else if(costototal >= 300000){
+						valorDomicilio = 0 ;
+						}
+			
+			}
+			else if (casa[0] == "Sur"){
+				if (costototal < 80000){
+				valorDomicilio = 120000 ;
+				}
+					else if((costototal < 300000)&& (costototal>80000)){
+					valorDomicilio = 55000 ;
+					}
+						else if(costototal >= 300000){
+						valorDomicilio = 0 ;
+						}
+						
+			}
+		
+		if (costototal > 0){
+			System.out.println("El costo de domicilio: "+ valorDomicilio);
+		}
 		System.out.println("El costo de materiales es: "+ costototal);
 		
 		for (int i=0; i< intencion.length;i++){
@@ -257,8 +349,10 @@ public class Integradora{
 			}
 			
 		}
-		costototal = costototal+manoDeObraBlanca+manoDeObraNegra+manoDeObraPintura;
+		if (costototal> 0){
+		costototal = costototal+manoDeObraBlanca+manoDeObraNegra+manoDeObraPintura+valorDomicilio;
 		System.out.println("El costo total es : "+ costototal);
+		}
 	}
 	public static void mostrarEnPantallaObraNegra ( String[] nombres, String[] intencion ) {
 		int x = 1;
@@ -294,9 +388,15 @@ public class Integradora{
 			}
 		}
 	} 
-	public static void ValoresHomecenter( String[] nombres,double[] listaHomcenter,String[] LugarMejorPrecio, String[] intencion ) {
+	public static void ValoresHomecenter( String[] nombres,double[] listaHomcenter,String[] LugarMejorPrecio,
+	String[] intencion,String[] casa ) {
 		int x = 1;
 		double costototal = 0;
+		int manoDeObraNegra= 0;
+		int manoDeObraBlanca= 0;
+		int manoDeObraPintura= 0;
+		int valorDomicilio = 0;
+		int productoFaltante = 1 ;
 		boolean completo = false;
 		System.out.println("Lista de precios en HomeCenter:");
 		for (int i = 0; i < listaHomcenter.length ; i++) {
@@ -307,10 +407,49 @@ public class Integradora{
 			}
 		}
 		System.out.println("El costo total en materiales en Homecenter es : " + costototal);
+		for (int i=0; i< intencion.length;i++){
+			if(intencion[i]== "Obra negra" ){
+				if (listaHomcenter[i]> 0)
+					manoDeObraNegra = 1300000 ;
+				else 
+					productoFaltante++;
+			}else{
+				if(intencion[i]== "Obra blanca" ){
+					if (listaHomcenter[i]> 0)
+						manoDeObraBlanca = 2600000;
+					else 
+						productoFaltante++;
+				}
+				else{
+					if (intencion[i]== "Obra pintura" )
+						if (listaHomcenter[i]> 0)
+							manoDeObraPintura = 980000;
+						else
+							productoFaltante++;
+			
+				}
+			}
+			
+		}
+		if (productoFaltante > 0);{
+			System.out.println("En este establecimiento no puede conseguir "+ productoFaltante+ " productos" );
+		}
+		if (costototal > 0){
+		System.out.println("El costo de domicilio: "+ valorDomicilio);
+		costototal = costototal+manoDeObraBlanca+manoDeObraNegra+manoDeObraPintura+valorDomicilio;
+		System.out.println("El costo total es : "+ costototal);
+		}else 
+			System.out.println("No tiene valor, por que no hay productos disponibles" );
 	}
-	public static void ValoresFerreteriaBarrio( String[] nombres,double[] listaFerreteriBarrio,String[] LugarMejorPrecio,String[] intencion ) {
+	public static void ValoresFerreteriaBarrio( String[] nombres,double[] listaFerreteriBarrio,
+	String[] LugarMejorPrecio,String[] intencion ,String[] casa) {
 		int x = 1;
 		double costototal = 0;
+		int manoDeObraNegra= 0;
+		int manoDeObraBlanca= 0;
+		int manoDeObraPintura= 0;
+		int valorDomicilio = 0;
+		int productoFaltante = 1 ;
 		
 		System.out.println("Lista de precios en ferreteria del barrio :");
 		for (int i = 0; i < listaFerreteriBarrio.length ; i++) {
@@ -321,20 +460,133 @@ public class Integradora{
 			}
 		}
 		System.out.println("El costo total en materiales en ferreteria del barrio es : " + costototal);
+		for (int i=0; i< intencion.length;i++){
+			if(intencion[i]== "Obra negra" ){
+				if (listaFerreteriBarrio[i]> 0)
+					manoDeObraNegra = 1300000 ;
+				else 
+					productoFaltante++;
+			}else{
+				if(intencion[i]== "Obra blanca" ){
+					if (listaFerreteriBarrio[i]> 0)
+						manoDeObraBlanca = 2600000;
+					else 
+						productoFaltante++;
+				}
+				else{
+					if (intencion[i]== "Obra pintura" )
+						if (listaFerreteriBarrio[i]> 0)
+							manoDeObraPintura = 980000;
+						else
+							productoFaltante++;
+			
+				}
+			}
+			
+		}
+		if (productoFaltante > 0);{
+			System.out.println("En este establecimiento no puede conseguir "+ productoFaltante+ " productos" );
+		}
+		if (costototal > 0){
+		System.out.println("El costo de domicilio: "+ valorDomicilio);
+		costototal = costototal+manoDeObraBlanca+manoDeObraNegra+manoDeObraPintura+valorDomicilio;
+		System.out.println("El costo total es : "+ costototal);
+		}else 
+			System.out.println("No tiene valor, por que no hay productos disponibles" );
 	}
-	public static void ValoresFerreteriaCentro( String[] nombres,double[] listaFerreteriaCentro,String[] LugarMejorPrecio, String[] intencion ) {
+	public static void ValoresFerreteriaCentro( String[] nombres,double[] listaFerreteriaCentro,
+	String[] LugarMejorPrecio, String[] intencion,String[] casa ) {
 		int x = 1;
+		int productoFaltante = 1;
 		double costototal = 0;
+		int manoDeObraNegra= 0;
+		int manoDeObraBlanca= 0;
+		int manoDeObraPintura= 0;
+		int valorDomicilio = 0;
 		boolean completo = false;
 		System.out.println("Lista de precios en ferreteria del centro:");
 		for (int i = 0; i < listaFerreteriaCentro.length ; i++) {
 			if(nombres[i] != null) {
-				System.out.println( x + ". Nombre: " + nombres[i] + " Valor"+ listaFerreteriaCentro[i] +" para:  "+  intencion[i]);
+				System.out.println( x + ". Nombre: " + nombres[i] + " Valor : "+ listaFerreteriaCentro[i] +" para:  "+  intencion[i]);
 				x++;
 				costototal = costototal + listaFerreteriaCentro[i];
 			}
 		}
+		
+		if (casa[0] == "Norte"){
+			if (costototal < 80000){
+				valorDomicilio = 120000 ;
+			}
+			else if((costototal < 300000)&& (costototal>80000)){
+				valorDomicilio = 28000 ;
+			}
+			else if(costototal >= 300000){
+				valorDomicilio = 0 ;
+			}
+			
+		}
+		else if  (casa[0] == "Centro"){
+			
+				if (costototal < 50000){
+				valorDomicilio = 50000 ;
+				}
+					else if((costototal < 300000)&& (costototal>80000)){
+					valorDomicilio = 0 ;
+					}
+						else if(costototal >= 300000){
+						valorDomicilio = 0 ;
+						}
+			
+			}
+			else if (casa[0] == "Sur"){
+				if (costototal < 80000){
+				valorDomicilio = 120000 ;
+				}
+					else if((costototal < 300000)&& (costototal>80000)){
+					valorDomicilio = 55000 ;
+					}
+						else if(costototal >= 300000){
+						valorDomicilio = 0 ;
+						}
+						
+			}	
+		
 		System.out.println("El costo total en materiales en ferreteria del centro es :" + costototal);
+		
+		for (int i=0; i< intencion.length;i++){
+			if(intencion[i]== "Obra negra" ){
+				if (listaFerreteriaCentro[i]> 0)
+					manoDeObraNegra = 1300000 ;
+				else 
+					productoFaltante++;
+			}else{
+				if(intencion[i]== "Obra blanca" ){
+					if (listaFerreteriaCentro[i]> 0)
+						manoDeObraBlanca = 2600000;
+					else 
+						productoFaltante++;
+				}
+				else{
+					if (intencion[i]== "Obra pintura" )
+						if (listaFerreteriaCentro[i]> 0)
+							manoDeObraPintura = 980000;
+						else
+							productoFaltante++;
+			
+				}
+			}
+			
+		}
+		if (productoFaltante > 0);{
+			System.out.println("En este establecimiento no puede conseguir "+ productoFaltante+ " productos" );
+		}
+		if (costototal > 0){
+		System.out.println("El costo de domicilio: "+ valorDomicilio);
+		costototal = costototal+manoDeObraBlanca+manoDeObraNegra+manoDeObraPintura+valorDomicilio;
+		System.out.println("El costo total es : "+ costototal);
+		}else 
+			System.out.println("No tiene valor, por que no hay productos disponibles" );
+		
 	}
 	
 	
