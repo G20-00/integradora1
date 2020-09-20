@@ -2,23 +2,23 @@
 import java.util.Scanner;
 public class Integradora{
 
-	public static final int CANTIDAD_MAXIMA = 1000;
-	public static final String WORK_BLACK = "Obra negra";
-	public static final String WORK_WHITE = "Obra blanca";
-	public static final String WORK_PAINTING = "Obra pintura";
+	public static final int maximumQuantity = 1000; // global variable with the maximum size of products to compare
+	public static final String WORK_BLACK = "Obra negra"; //global variable string for black work
+	public static final String WORK_WHITE = "Obra blanca"; //  global variable string for white work
+	public static final String WORK_PAINTING = "Obra pintura"; // variable global string for painting work
 	
 	
 	public static void main (String [] args) {
 		Scanner scan = new Scanner(System.in);
-		boolean run = true;
-		String[] names = new String[CANTIDAD_MAXIMA];
-		String[] intention = new String[CANTIDAD_MAXIMA];
-		double[] bestPrice = new double[CANTIDAD_MAXIMA];
-		String[] placeBestPrice = new String[CANTIDAD_MAXIMA];
-		double [] listHomecenter = new double[CANTIDAD_MAXIMA];
-		double [] neighborhoodHardwarList =new double[CANTIDAD_MAXIMA];
-		double [] hardwareCenterList = new double[CANTIDAD_MAXIMA];
-		String[] house = new String[CANTIDAD_MAXIMA];
+		boolean run = true; // variable that controls the user's choice
+		String[] names = new String[maximumQuantity]; // is responsible for storing the name of the products
+		String[] intention = new String[maximumQuantity]; //is in charge of storing what the product will be used for
+		double[] bestPrice = new double[maximumQuantity]; // is responsible for saving the lowest value of the products
+		String[] placeBestPrice = new String[maximumQuantity]; // is responsible for storing the place of the lowest price
+		double [] listHomecenter = new double[maximumQuantity]; //  is in charge of storing the list of homcenter products
+		double [] neighborhoodHardwarList =new double[maximumQuantity]; //is in charge of storing the list of hardware products in the neighborhood
+		double [] hardwareCenterList = new double[maximumQuantity]; //is in charge of storing the list of hardware products of the center
+		String[] house = new String[maximumQuantity]; //is responsible for storing the location of the home
 		while(run) {
 			System.out.println("Escoja una opcion:");
 			System.out.println("1. Comparar una serie de productos y añadir a la lista el de menor precio.");
@@ -134,6 +134,8 @@ public class Integradora{
 		}
 		return intention;
 	}
+	
+	// method in charge of asking for the name and price of the products
 	/**
 	*compareProducts save the values ​​of each store
 	*<b> pre: </b>
@@ -159,17 +161,18 @@ public class Integradora{
 		System.out.println("¿Cuantos productos ingresaras para comparar?");
 		
 		int quantity = Integer.parseInt(scan.nextLine());
-		double[] HomeCenter = new double[quantity];
-		double[] hardwareCenter = new double[quantity]; // variable asignada para almacenar, los valores para ferreteria del barrio
-		double[] hardwareStore = new double[quantity]; // variable asignada para almacenar, los valores para ferreteria del centro
-		String[] compareName = new String[quantity];
-		String[] compareIntentionality = new String[quantity];
+		double[] HomeCenter = new double[quantity]; // variable assigned to store, the values ​​for the Homcenter
+		double[] hardwareCenter = new double[quantity]; // variable assigned to store, the values ​​for the neighborhood hardware store
+		double[] hardwareStore = new double[quantity]; //  variable assigned to store, the values ​​for the center hardware store
+		String[] compareName = new String[quantity]; //  variable assigned to partially save the name
+		String[] compareIntentionality = new String[quantity];  // variable used to call the method, of intentionality
 		
-		double unitPrice= 0;
+		double unitPrice= 0; //variable that stores the unit value of the product
 		
 		house[0] = place;
 		
-		for(int i = 0; i<quantity; i++) {
+		for(int i = 0; i<quantity; i++) { //condition to order all products
+
 			
 			compareIntentionality[i] =  getIntentionality(scan);
 			
@@ -178,9 +181,8 @@ public class Integradora{
 			names[i]= compareName[i];
 			
 			System.out.println("Cuantos unidades necesita del producto");
-			int Units = Integer.parseInt(scan.nextLine());
-			if (Units> 0){
-			
+			int Units = Integer.parseInt(scan.nextLine()); //variable used to know how many units you need of the product
+			if ( Units >  0 ) {
 			System.out.println("Ingrese el precio del producto numero " + (i+1) +"En HomeCenter");
 			unitPrice = Double.parseDouble(scan.nextLine());
 			HomeCenter[i] = unitPrice * Units;
@@ -196,15 +198,15 @@ public class Integradora{
 			hardwareStore[i] = unitPrice * Units;
 			neighborhoodHardwarList[i]= hardwareStore[i];
 			}
-			else 
-				System.out.println("Las unidades que necesita, no son posibles ");
+			else
+			System.out.println("Las unidades que necesita, no son posibles ");
 			
 		}
+		//method initialization, in charge of comparing values
 		
-		
-		comparisonValues(intention ,compareIntentionality , HomeCenter , hardwareCenter , hardwareStore  , names , bestPrice , quantity , placeBestPrice);
+		comparisonValues(intention ,compareIntentionality,HomeCenter,hardwareCenter,hardwareStore,names,bestPrice,quantity,placeBestPrice);
+			
 	}
-	
 	/**
 	*compareProducts save the values ​​of each store
 	*<b> pre: </b>
@@ -225,9 +227,12 @@ public class Integradora{
 				
 		double lowerValue = 0;
 		
-		String HomeC = " en Homecenter"; // variable de string almacenadora del nombre homecente
-		String Ferrec = " en Ferreteria centro ";
-		String FerreB = "en Ferreteria del barrio";
+		String HomeC = " en Homecenter"; // string variable that stores the value of a store
+
+		String Ferrec = " en Ferreteria centro "; // string variable that stores the value of a store
+
+		String FerreB = "en Ferreteria del barrio";  // string variable that stores the value of a store
+
 		for (int i = 0; i < quantity; i++) {
 		if((HomeCenter[i] <= hardwareCenter[i]) &&(HomeCenter[i] <= hardwareStore[i]) ) {
 				if (HomeCenter[i] > 0) {
@@ -318,31 +323,32 @@ public class Integradora{
 	*@param placeBestPrice   the place that has the cheapest prices
 	*@param intention save product utility	
 	*@param house where is the house located
-	
 	*/
 	public static void showOnScreen ( String[] names, double[] bestPrice,
 						String[] placeBestPrice,String[] intention,String[] house ) {
-		int x = 1; // variable contadora
-		double totalCost = 0;
-		boolean completo = false;
-		int blackWorkManShip= 0;
-		int whiteWorkforce= 0;
-		int workmanshipPainting= 0;
-		int addressValue = 0;
-		
+		int x = 1; // counter variable used to display the product number
+		double totalCost = 0; //  counter in charge of storing the sum of the values ​​of all products
+		boolean complete = false; 
+		int blackWorkManShip= 0; // variables in charge of accounting for labor
+		int whiteWorkforce= 0;  //variables in charge of accounting for labor
+		int workmanshipPainting= 0; //variables in charge of accounting for labor
+		int addressValue = 0; //is used for the address value
 				
 		System.out.println("Los mejores precios y sus puntos de venta son : ");
-		for (int i = 0; i < bestPrice.length && !completo; i++) {
+		
+		//it is used to go all the way through the entire array and save the smallest value
+		for (int i = 0; i < bestPrice.length && !complete; i++) {
 			if (bestPrice[i]> 0){
 				if(names[i] != null) {
 				System.out.println( x + ". Nombre: " + names[i] + ". Precio: " + bestPrice[i] + " Lugar de compra " +placeBestPrice[i] +"  "+  intention[i]);
 				x++;
 				totalCost = totalCost + bestPrice[i];
 					}else {
-					completo=true;
+					complete=true;
 					}
 			}	
 		}
+		// in charge of determining the value of the domicile
 		if (house[0] == "North"){
 			if (totalCost < 80000){
 				addressValue = 120000 ;
@@ -385,7 +391,7 @@ public class Integradora{
 			System.out.println("El costo de domicilio: "+ addressValue);
 		}
 		System.out.println("El costo de materiales es: "+ totalCost);
-		
+		// in charge of determining the value of labor
 		for (int i=0; i< intention.length;i++){
 			if(intention[i]== "Obra negra" ){
 				blackWorkManShip = 1300000 ;
@@ -406,7 +412,7 @@ public class Integradora{
 		System.out.println("El costo total es : "+ totalCost);
 		}
 	}
-	
+	//method in charge of printing the names of the products of the black work
 /**
 	*showOnScreenWorkBlack print the names of the black work
 	*<b> pre: </b> must have names other than null
@@ -415,7 +421,7 @@ public class Integradora{
 	*@param intention save product utility	
 	*/
 	public static void showOnScreenWorkBlack ( String[] names, String[] intention ) {
-		int x = 1;
+		int x = 1; // counter variable used to display the product number
 		
 		System.out.println("Los productos de la obra negra son:");
 		for (int i = 0; i < intention.length ; i++) {
@@ -425,6 +431,7 @@ public class Integradora{
 			}
 		}
 	}
+	//method in charge of printing the names of the products of the with work
 	/**
 	*showOnScreenWhiteWork print the names of the with work
 	*<b> pre: </b> must have names other than null
@@ -433,7 +440,7 @@ public class Integradora{
 	*@param intention save product utility	
 	*/
 	public static void showOnScreenWhiteWork ( String[] names, String[] intention ) {
-		int x = 1;
+		int x = 1; //counter variable used to display the product number
 		
 		System.out.println("productos de la obra blanca son:");
 		for (int i = 0; i < intention.length; i++) {
@@ -443,6 +450,7 @@ public class Integradora{
 			}
 		}
 	}
+	//method in charge of printing the names of the products of the Painting work
 	/**
 	*showOnScreenWorkPainting print the names of the Painting work
 	*<b> pre: </b> must have names other than null
@@ -451,7 +459,7 @@ public class Integradora{
 	*@param intention save product utility	
 	*/
 	public static void showOnScreenWorkPainting( String[] names, String[] intention ) {
-		int x = 1;
+		int x = 1; //counter variable used to display the product number
 		
 		System.out.println("productos de  la obra pintura son:");
 		for (int i = 0; i < intention.length ; i++) {
@@ -474,14 +482,14 @@ public class Integradora{
 	*/
 	public static void homecenterValues( String[] names,double[] listHomecenter,String[] placeBestPrice,
 	String[] intention,String[] house ) {
-		int x = 1;
-		double totalCost = 0;
-		int blackWorkManShip= 0;
-		int whiteWorkforce= 0;
-		int workmanshipPainting= 0;
-		int addressValue = 0;
-		int missingProduct = 0 ;
-		boolean completo = false;
+		int x = 1; //counter variable used to display the product number
+		double totalCost = 0; //  counter in charge of storing the sum of the values ​​of all products
+		boolean complete = false; 
+		int blackWorkManShip= 0;// variables in charge of accounting for labor
+		int whiteWorkforce= 0; //variables in charge of accounting for labor
+		int workmanshipPainting= 0;  //variables in charge of accounting for labor
+		int addressValue = 0; //is used for the address value
+		int missingProduct = 0 ; //variable in charge of finding a product with value 0
 		System.out.println("Lista de precios en HomeCenter:");
 		for (int i = 0; i < listHomecenter.length ; i++) {
 			if(names[i] != null) {
@@ -574,13 +582,13 @@ public class Integradora{
 	*/
 	public static void neighborhoodHardwareValues( String[] names,double[] neighborhoodHardwarList,
 	String[] placeBestPrice,String[] intention ,String[] house) {
-		int x = 1;
-		double totalCost = 0;
-		int blackWorkManShip= 0;
-		int whiteWorkforce= 0;
-		int workmanshipPainting= 0;
-		int addressValue = 0;
-		int missingProduct = 0 ;
+		int x = 1; //counter variable used to display the product number
+		double totalCost = 0; //  counter in charge of storing the sum of the values ​​of all products
+		int blackWorkManShip= 0; // variables in charge of accounting for labor
+		int whiteWorkforce= 0; //variables in charge of accounting for labor
+		int workmanshipPainting= 0;  //variables in charge of accounting for labor
+		int addressValue = 0; //is used for the address value
+		int missingProduct = 0 ; //variable in charge of finding a product with value 0
 		
 		System.out.println("Lista de precios en ferreteria del barrio :");
 		for (int i = 0; i < neighborhoodHardwarList.length ; i++) {
@@ -591,6 +599,8 @@ public class Integradora{
 			}
 		}
 		System.out.println("El costo total en materiales en ferreteria del barrio es : " + totalCost);
+		// conditional used to calculate the value of the address
+
 		if (house[0] == "North"){
 			if (totalCost < 80000){
 				addressValue = 120000 ;
@@ -674,14 +684,14 @@ public class Integradora{
 	*/
 	public static void valuesHardwareCenter( String[] names,double[] hardwareCenterList,
 	String[] placeBestPrice, String[] intention,String[] house ) {
-		int x = 1;
-		int missingProduct = 0;
-		double totalCost = 0;
-		int blackWorkManShip= 0;
-		int whiteWorkforce= 0;
-		int workmanshipPainting= 0;
-		int addressValue = 0;
-		boolean completo = false;
+		int x = 1; //counter variable used to display the product number
+		int missingProduct = 0; //variable in charge of finding a product with value 0
+		double totalCost = 0; //  counter in charge of storing the sum of the values ​​of all products
+		int blackWorkManShip= 0; // variables in charge of accounting for labor
+		int whiteWorkforce= 0; //variables in charge of accounting for labor
+		int workmanshipPainting= 0;  //variables in charge of accounting for labor
+		int addressValue = 0; //is used for the address value
+		boolean complete = false;
 		System.out.println("Lista de precios en ferreteria del centro:");
 		for (int i = 0; i < hardwareCenterList.length ; i++) {
 			if(names[i] != null) {
@@ -690,7 +700,8 @@ public class Integradora{
 				totalCost = totalCost + hardwareCenterList[i];
 			}
 		}
-		
+		// conditional used to calculate the value of the address
+
 		if (house[0] == "North"){
 			if (totalCost < 80000){
 				addressValue = 120000 ;
