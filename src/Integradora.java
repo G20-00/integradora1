@@ -76,9 +76,9 @@ public class Integradora{
 	*/
 	public static String getPlace(Scanner scan){
 	String placeObtained = null ;	
-	place l = null ;
+	Place l = null ;
 	int accountant =1;
-	for (place home : place.values()){ // values para obtener todos los valores "objetos"
+	for (Place home : Place.values()){ // values para obtener todos los valores "objetos"
 			
 			System.out.println(accountant + ". "+ home.getPlace());
 			accountant++;
@@ -349,7 +349,7 @@ public class Integradora{
 			}	
 		}
 		// in charge of determining the value of the domicile
-		if (house[0] == "North"){
+		if (house[0] == "Norte"){
 			if (totalCost < 80000){
 				addressValue = 120000 ;
 			}
@@ -361,7 +361,7 @@ public class Integradora{
 			}
 			
 		}
-		else if  (house[0] == "Center"){
+		else if  (house[0] == "Centro"){
 			
 				if (totalCost < 50000){
 				addressValue = 50000 ;
@@ -374,7 +374,7 @@ public class Integradora{
 						}
 			
 			}
-			else if (house[0] == "South"){
+			else if (house[0] == "Sur"){
 				if (totalCost < 80000){
 				addressValue = 120000 ;
 				}
@@ -406,6 +406,13 @@ public class Integradora{
 				}
 			}
 			
+		}		
+		if (totalCost> 0){
+		
+		double workForce = 0;
+		
+		workForce= whiteWorkforce+blackWorkManShip+workmanshipPainting;
+		System.out.println("Valor mano de obra : "+ workForce);
 		}
 		if (totalCost> 0){
 		totalCost = totalCost+whiteWorkforce+blackWorkManShip+workmanshipPainting+addressValue;
@@ -496,10 +503,14 @@ public class Integradora{
 			System.out.println( x + ". Nombre: " + names[i] + "  Valor:  "+ listHomecenter[i] + " para : "+  intention[i]);
 				x++;
 				totalCost = totalCost + listHomecenter[i];
+				if(listHomecenter[i]==0){
+					missingProduct= missingProduct+1;
+				}
+				
 			}
 		}
 		System.out.println("El costo total en materiales en Homecenter es : " + totalCost);
-		if (house[0] == "North"){
+		if (house[0] == "Norte"){
 			if (totalCost < 80000){
 				addressValue = 120000 ;
 			}
@@ -511,7 +522,7 @@ public class Integradora{
 			}
 			
 		}
-		else if  (house[0] == "Center"){
+		else if  (house[0] == "Centro"){
 			
 				if (totalCost < 80000){
 				addressValue = 50000 ;
@@ -524,7 +535,7 @@ public class Integradora{
 						}
 			
 			}
-			else if (house[0] == "South"){
+			else if (house[0] == "Sur"){
 				if (totalCost < 80000){
 				addressValue = 120000 ;
 				}
@@ -540,29 +551,24 @@ public class Integradora{
 			if(intention[i]== "Obra negra" ){
 				if (listHomecenter[i]> 0)
 					blackWorkManShip = 1300000 ;
-				else 
-					missingProduct=1 + missingProduct;
+				
 			}else{
 				if(intention[i]== "Obra blanca" ){
 					if (listHomecenter[i]> 0)
 						whiteWorkforce = 2600000;
-					else 
-						missingProduct=1 + missingProduct ;
+					
 				}
 				else{
 					if (intention[i]== "Obra pintura" )
 						if (listHomecenter[i]> 0)
 							workmanshipPainting = 980000;
-						else
-							missingProduct=1 + missingProduct;
+						
 			
 				}
 			}
 			
 		}
-		if (missingProduct > 0);{
-			System.out.println("En este establecimiento no puede conseguir "+ missingProduct+ " productos" );
-		}
+		
 		if (totalCost > 0){
 		System.out.println("El costo de domicilio: "+ addressValue);
 		totalCost = totalCost+whiteWorkforce+blackWorkManShip+workmanshipPainting+addressValue;
@@ -596,12 +602,15 @@ public class Integradora{
 			System.out.println( x + ". Nombre: " + names[i] + " Valor : "+ neighborhoodHardwarList[i] + " para : " + intention[i]);
 				x++;
 				totalCost = totalCost + neighborhoodHardwarList[i];
+				if(neighborhoodHardwarList[i] == 0){
+					missingProduct= missingProduct+1;
+				}
 			}
 		}
 		System.out.println("El costo total en materiales en ferreteria del barrio es : " + totalCost);
 		// conditional used to calculate the value of the address
 
-		if (house[0] == "North"){
+		if (house[0] == "Norte"){
 			if (totalCost < 80000){
 				addressValue = 120000 ;
 			}
@@ -613,7 +622,7 @@ public class Integradora{
 			}
 			
 		}
-		else if  (house[0] == "Center"){
+		else if  (house[0] == "Centro"){
 			
 				if (totalCost < 80000){
 				addressValue = 50000 ;
@@ -626,7 +635,7 @@ public class Integradora{
 						}
 			
 			}
-			else if (house[0] == "South"){
+			else if (house[0] == "Sur"){
 				if (totalCost < 80000){
 				addressValue = 120000 ;
 				}
@@ -642,29 +651,24 @@ public class Integradora{
 			if(intention[i]== "Obra negra" ){
 				if (neighborhoodHardwarList[i]> 0)
 					blackWorkManShip = 1300000 ;
-				else 
-					missingProduct++;
+				
 			}else{
 				if(intention[i]== "Obra blanca" ){
 					if (neighborhoodHardwarList[i]> 0)
 						whiteWorkforce = 2600000;
-					else 
-						missingProduct++;
+					
 				}
 				else{
 					if (intention[i]== "Obra pintura" )
 						if (neighborhoodHardwarList[i]> 0)
 							workmanshipPainting = 980000;
-						else
-							missingProduct++;
+						
 			
 				}
 			}
 			
 		}
-		if (missingProduct > 0);{
-			System.out.println("En este establecimiento no puede conseguir "+ missingProduct+ " productos" );
-		}
+		
 		if (totalCost > 0){
 		System.out.println("El costo de domicilio: "+ addressValue);
 		totalCost = totalCost+whiteWorkforce+blackWorkManShip+workmanshipPainting+addressValue;
@@ -698,11 +702,14 @@ public class Integradora{
 				System.out.println( x + ". Nombre: " + names[i] + " Valor : "+ hardwareCenterList[i] +" para:  "+  intention[i]);
 				x++;
 				totalCost = totalCost + hardwareCenterList[i];
+				if(hardwareCenterList[i]==0){
+					missingProduct= missingProduct+1;
+				}
 			}
 		}
 		// conditional used to calculate the value of the address
 
-		if (house[0] == "North"){
+		if (house[0] == "Norte"){
 			if (totalCost < 80000){
 				addressValue = 120000 ;
 			}
@@ -714,7 +721,7 @@ public class Integradora{
 			}
 			
 		}
-		else if  (house[0] == "Center"){
+		else if  (house[0] == "Centro"){
 			
 				if (totalCost < 80000){
 				addressValue = 50000 ;
@@ -727,7 +734,7 @@ public class Integradora{
 						}
 			
 			}
-			else if (house[0] == "South"){
+			else if (house[0] == "Sur"){
 				if (totalCost < 80000){
 				addressValue = 120000 ;
 				}
@@ -747,34 +754,25 @@ public class Integradora{
 				if (hardwareCenterList[i]> 0){
 					blackWorkManShip = 1300000 ;
 				}	
-				else if(hardwareCenterList[i] == 0) {
-							missingProduct++;
-				}	
+					
 			}else{
 				if(intention[i]== "Obra blanca" ){
 					if (hardwareCenterList[i]> 0)
 						whiteWorkforce = 2600000;
-					else if(hardwareCenterList[i] == 0) {
-							missingProduct++;
-					}
+					
 				}
 				else{
 					if (intention[i]== "Obra pintura" ){
 						if (hardwareCenterList[i]> 0){
 							workmanshipPainting = 980000;
 						}	
-						else if(hardwareCenterList[i] == 0) {
-							missingProduct++;
-						}
+						
 					}	
 				}
 			}
 			
 		}
 		
-		if (missingProduct > 0);{
-			System.out.println("En este establecimiento no puede conseguir "+ missingProduct+ " productos" );
-		}
 		if (totalCost > 0){
 		System.out.println("El costo de domicilio: "+ addressValue);
 		totalCost = totalCost+whiteWorkforce+blackWorkManShip+workmanshipPainting+addressValue;
@@ -783,6 +781,5 @@ public class Integradora{
 			System.out.println("No tiene valor, por que no hay productos disponibles" );
 		
 	}
-	
-	
+		
 }		

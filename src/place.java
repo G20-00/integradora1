@@ -1,8 +1,8 @@
-public enum place {
-	NORTH("North"),CENTER("Center"),SOUTH("South");
+public enum Place {
+	NORTH("Norte"),CENTER("Centro"),SOUTH("Sur");
 	
 	private String House ;
-	private place(String c){
+	private Place(String c){
 		 House = c;
 	} 
 	public String getPlace (){
